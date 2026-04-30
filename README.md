@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://raw.githubusercontent.com/EchoMusicApp/Echo-Music/refs/heads/main/assets/Echo-new.png" alt="Echo Music Logo" width="200">
+  <img src="https://raw.githubusercontent.com/EchoMusicApp/Echo-Music/refs/heads/main/assets/Echo-new.png" alt="Echo Music Logo" width="140">
 </p>
 
 <h1 align="center">Echo Music Website</h1>
