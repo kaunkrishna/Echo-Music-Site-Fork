@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Contact Us - Echo Music</title>
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;500;600;700;800;900&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      .contact-container {
+        max-width: 900px;
+        margin: 0 auto;
+        padding: 100px 40px 60px;
+        background: #000000;
+        min-height: 100vh;
+        font-family: "Zalando Sans Expanded", sans-serif;
+      }
+
+      .contact-header {
+        text-align: center;
+        margin-bottom: 60px;
+      }
+
+      .contact-title {
+        font-size: 3rem;
+        font-weight: 900;
+        color: #ffffff;
+        margin-bottom: 20px;
+        background: linear-gradient(135deg, #ffffff, #cccccc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      .contact-subtitle {
+        font-size: 1.2rem;
+        color: #cccccc;
+        line-height: 1.6;
+        max-width: 700px;
+        margin: 0 auto;
+      }
+
+      .contact-content {
+        color: #ffffff;
+        line-height: 1.8;
+      }
+
+      .contact-section {
+        margin-bottom: 50px;
+      }
+
+      .section-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 25px;
+        border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+        padding-bottom: 10px;
+      }
+
+      .section-content {
+        font-size: 1rem;
+        color: #cccccc;
+        margin-bottom: 20px;
+      }
+
+      .contact-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 25px;
+        margin: 30px 0;
+      }
+
+      .contact-card {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 25px;
+        transition: all 0.3s ease;
+      }
+
+      .contact-card:hover {
+        background: rgba(255, 255, 255, 0.08);
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(255, 255, 255, 0.1);
+      }
+
+      .card-title {
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 15px;
+      }
+
+      .card-description {
+        color: #cccccc;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
+
+      .card-button {
+        display: inline-block;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 12px 24px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        font-weight: 500;
+        text-align: center;
+        width: 100%;
+      }
+
+      .card-button:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .response-time {
+        font-size: 0.9rem;
+        color: #999999;
+        margin-top: 10px;
+        font-style: italic;
+      }
+
+      .developer-info {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 30px;
+        margin: 30px 0;
+      }
+
+      .developer-title {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+
+      .developer-links {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+
+      .developer-link {
+        color: #ffffff;
+        text-decoration: none;
+        padding: 12px 20px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .developer-link:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .resources-list {
+        margin: 20px 0;
+        padding-left: 0;
+        list-style: none;
+      }
+
+      .resources-list li {
+        margin-bottom: 15px;
+        padding-left: 25px;
+        position: relative;
+        color: #cccccc;
+      }
+
+      .resources-list li::before {
+        content: "•";
+        color: #ffffff;
+        font-weight: bold;
+        position: absolute;
+        left: 0;
+      }
+
+      .highlight-text {
+        color: #ffffff;
+        font-weight: 600;
+      }
+
+      .back-link {
+        display: inline-block;
+        margin-bottom: 30px;
+        color: #ffffff;
+        text-decoration: none;
+        padding: 12px 24px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 8px;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.3s ease;
+        font-weight: 500;
+      }
+
+      .back-link:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transform: translateY(-2px);
+      }
+
+      .thank-you {
+        text-align: center;
+        margin-top: 60px;
+        padding-top: 30px;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+        color: #cccccc;
+        font-size: 1.1rem;
+      }
+
+      .echo-signature {
+        font-size: 1.5rem;
+        font-weight: 800;
+        color: #ffffff;
+        margin-top: 15px;
+        background: linear-gradient(135deg, #ffffff, #cccccc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+      }
+
+      @media (max-width: 768px) {
+        .contact-container {
+          padding: 80px 20px 40px;
+        }
+
+        .contact-title {
+          font-size: 2.2rem;
+        }
+
+        .contact-subtitle {
+          font-size: 1rem;
+        }
+
+        .section-title {
+          font-size: 1.5rem;
+        }
+
+        .contact-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .developer-links {
+          flex-direction: column;
+          align-items: center;
+        }
+
+        .developer-link {
+          width: 200px;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="contact-container">
+      <a href="../index.html" class="back-link">← Back to Echo Music</a>
+
+      <div class="contact-header">
+        <h1 class="contact-title">Contact Us</h1>
+        <p class="contact-subtitle">
+          I'd love to hear from you! Whether you have questions, need help, want
+          to report a bug, or have suggestions for new features, I'm here to
+          help.
+        </p>
+      </div>
+
+      <div class="contact-content">
+
+        <div class="contact-section">
+          <h2 class="section-title">Get in Touch</h2>
+          <div class="contact-grid">
+            <div class="contact-card">
+              <h3 class="card-title">Email Support</h3>
+              <p class="card-description">
+                For general inquiries, support questions, or feedback
+              </p>
+              <a href="mailto:hello@echomusic.fun" class="card-button"
+                >Send Email</a
+              >
+              <p class="response-time">
+                I typically respond within 24-48 hours
+              </p>
+            </div>
+
+            <div class="contact-card">
+              <h3 class="card-title">Bug Reports</h3>
+              <p class="card-description">
+                Found a bug? Help us fix it by reporting it
+              </p>
+              <div style="display: flex; gap: 10px; margin-top: 15px">
+                <a
+                  href="https://github.com/iad1tya/Echo-Music/issues"
+                  class="card-button"
+                  style="flex: 1"
+                  >GitHub</a
+                >
+                <a
+                  href="https://discord.com/invite/EcfV3AxH5c"
+                  class="card-button"
+                  style="flex: 1"
+                  >Discord</a
+                >
+              </div>
+              <p class="response-time">
+                Please include device information and steps to reproduce
+              </p>
+            </div>
+
+            <div class="contact-card">
+              <h3 class="card-title">Feature Requests</h3>
+              <p class="card-description">
+                Have an idea for a new feature? Let us know
+              </p>
+              <div style="display: flex; gap: 10px; margin-top: 15px">
+                <a
+                  href="https://github.com/iad1tya/Echo-Music/issues"
+                  class="card-button"
+                  style="flex: 1"
+                  >GitHub</a
+                >
+                <a
+                  href="https://discord.com/invite/EcfV3AxH5c"
+                  class="card-button"
+                  style="flex: 1"
+                  >Discord</a
+                >
+              </div>
+              <p class="response-time">Describe the use case and motivation</p>
+            </div>
+
+            <div class="contact-card">
+              <h3 class="card-title">General Questions</h3>
+              <p class="card-description">Have a question? Ask the community</p>
+              <div style="display: flex; gap: 10px; margin-top: 15px">
+                <a
+                  href="https://github.com/iad1tya/Echo-Music/discussions"
+                  class="card-button"
+                  style="flex: 1"
+                  >GitHub</a
+                >
+                <a
+                  href="https://discord.com/invite/EcfV3AxH5c"
+                  class="card-button"
+                  style="flex: 1"
+                  >Discord</a
+                >
+              </div>
+              <p class="response-time">
+                Check existing issues first to see if your question has been
+                answered
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-section">
+          <h2 class="section-title">Community & Social</h2>
+          <p class="section-content">
+            Connect with us and the Echo Music community:
+          </p>
+          <div class="contact-grid">
+            <div class="contact-card">
+              <h3 class="card-title">GitHub Repository</h3>
+              <p class="card-description">
+                View source code, report issues, and contribute
+              </p>
+              <a
+                href="https://github.com/iad1tya/Echo-Music"
+                class="card-button"
+                >Visit GitHub</a
+              >
+            </div>
+
+            <div class="contact-card">
+              <h3 class="card-title">Discord Community</h3>
+              <p class="card-description">
+                Join our Discord server for real-time discussions
+              </p>
+              <a
+                href="https://discord.com/invite/EcfV3AxH5c"
+                class="card-button"
+                >Join Discord</a
+              >
+            </div>
+          </div>
+        </div>
+
+
+        <div class="developer-info">
+          <h3 class="developer-title">Developer Information</h3>
+          <div class="developer-links">
+            <a href="https://github.com/iad1tya" class="developer-link"
+              >GitHub: @iad1tya</a
+            >
+            <a href="https://iad1tya.cyou" class="developer-link"
+              >Website: iad1tya.cyou</a
+            >
+          </div>
+        </div>
+
+        <div class="contact-section">
+          <h2 class="section-title">Before Contacting Us</h2>
+          <p class="section-content">
+            To help us help you faster, please check these resources first:
+          </p>
+          <ul class="resources-list">
+            <li>
+              <span class="highlight-text">README:</span> Check our README file
+              for installation and setup instructions
+            </li>
+            <li>
+              <span class="highlight-text">GitHub Issues:</span> Search existing
+              issues to see if your problem has been reported
+            </li>
+            <li>
+              <span class="highlight-text">Documentation:</span> Check our setup
+              guide for detailed documentation
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact-section">
+          <h2 class="section-title">What to Include in Your Message</h2>
+          <p class="section-content">When contacting us, please include:</p>
+          <ul class="resources-list">
+            <li>
+              <span class="highlight-text">Device Information:</span> Android
+              version, device model
+            </li>
+            <li>
+              <span class="highlight-text">App Version:</span> Version of Echo
+              Music you're using
+            </li>
+            <li>
+              <span class="highlight-text">Problem Description:</span> Clear
+              description of the issue
+            </li>
+            <li>
+              <span class="highlight-text">Steps to Reproduce:</span> How to
+              reproduce the problem (for bugs)
+            </li>
+            <li>
+              <span class="highlight-text">Screenshots/Logs:</span> If
+              applicable, include relevant screenshots or log files
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact-section">
+          <h2 class="section-title">Response Times</h2>
+          <p class="section-content">
+            I aim to respond to all inquiries within:
+          </p>
+          <ul class="resources-list">
+            <li><span class="highlight-text">Email:</span> 24-48 hours</li>
+            <li><span class="highlight-text">GitHub Issues:</span> 2-3 days</li>
+            <li>
+              <span class="highlight-text">Bug Reports:</span> Priority response
+              within 24 hours
+            </li>
+            <li>
+              <span class="highlight-text">Feature Requests:</span> Community
+              discussion and evaluation
+            </li>
+          </ul>
+        </div>
+
+        <div class="contact-section">
+          <h2 class="section-title">Contributing</h2>
+          <p class="section-content">
+            Want to contribute to Echo Music? I welcome contributions!
+          </p>
+          <ul class="resources-list">
+            <li>
+              <span class="highlight-text">Code Contributions:</span> Fork the
+              repository and submit pull requests
+            </li>
+            <li>
+              <span class="highlight-text">Documentation:</span> Help improve
+              our documentation and guides
+            </li>
+            <li>
+              <span class="highlight-text">Testing:</span> Help test new
+              features and report issues
+            </li>
+            <li>
+              <span class="highlight-text">Translations:</span> Help translate
+              the app to other languages
+            </li>
+          </ul>
+          <p class="section-content">
+            Check our
+            <span class="highlight-text">Contributing Guidelines</span> for more
+            information.
+          </p>
+        </div>
+      </div>
+
+      <div class="thank-you">
+        <p>Thank you for using Echo Music!</p>
+        <p>Your feedback helps us make the app better for everyone.</p>
+        <div class="echo-signature">Echo Music</div>
+      </div>
+    </div>
+  </body>
+</html>

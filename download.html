@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Download</title>
+  </head>
+  <body>
+    <script>
+      (async function(){
+        try{
+          const res = await fetch('https://api.github.com/repos/EchoMusicApp/Echo-Music/releases/latest');
+          if(!res.ok) throw new Error('no release');
+          const data = await res.json();
+          const assets = Array.isArray(data.assets) ? data.assets : [];
+          const asset = assets.find(a => /\.apk$/i.test(a.name)) || assets[0];
+          if(asset && asset.browser_download_url) {
+            window.location.replace(asset.browser_download_url);
+          } else {
+            document.body.textContent = 'No downloadable asset found.';
+          }
+        } catch (e) {
+          document.body.textContent = 'Download failed.';
+        }
+      })();
+    </script>
+  </body>
+</html>

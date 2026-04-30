@@ -1,0 +1,1511 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Zalando Sans Expanded", sans-serif;
+}
+
+body {
+  font-family: "Zalando Sans Expanded", sans-serif;
+  background-color: #000000;
+  color: #ffffff;
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+.container {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.header {
+  position: absolute;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .header {
+    top: 15px;
+  }
+
+  .logo {
+    font-size: 2.2rem;
+  }
+}
+
+.logo {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: #ffffff;
+  letter-spacing: 2px;
+}
+
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 120px 60px 60px;
+  min-height: 100vh;
+  position: relative;
+  z-index: 10;
+}
+
+.left-content {
+  flex: 1;
+  padding-right: 40px;
+}
+
+.main-title {
+  font-size: 4.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 20px;
+  color: #ffffff;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: #ffffff;
+  opacity: 0.9;
+}
+
+.phone-container {
+  flex: 0 0 auto;
+  position: relative;
+  z-index: 15;
+}
+
+.phone-mockup {
+  width: 280px;
+  height: 560px;
+  background: transparent;
+  border-radius: 40px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.phone-screen {
+  width: 100%;
+  height: 100%;
+  background-color: transparent;
+  border-radius: 40px;
+  padding: 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.screenshot {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 40px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.screenshot.active {
+  opacity: 1;
+}
+
+.right-content {
+  flex: 1;
+  padding-left: 40px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+}
+
+.qr-code {
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: center;
+}
+
+.qr-code img {
+  width: 150px;
+  height: 150px;
+  border-radius: 20px;
+  border: 3px solid rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  background: rgba(255, 255, 255, 0.05);
+  box-shadow: 0 15px 40px rgba(255, 255, 255, 0.1),
+    0 0 0 1px rgba(255, 255, 255, 0.1);
+}
+
+.download-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* small 'or' text between main download button and icon links */
+.or-text {
+  text-align: center;
+  font-size: 0.85rem;
+  color: #cfcfcf;
+  opacity: 0.9;
+  margin: -4px 0 6px;
+}
+
+/* icon links row (GitHub, Obtainium) */
+.icon-links {
+  display: flex;
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+}
+
+.icon-link {
+  width: 72px;
+  height: 72px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.04);
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+  text-decoration: none;
+}
+
+.icon-link:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 20px rgba(255, 255, 255, 0.06);
+}
+
+.icon-img {
+  width: 36px;
+  height: 36px;
+  object-fit: contain;
+  display: block;
+}
+
+/* make GitHub icon appear white using a filter (targets the image with .github-img) */
+.icon-img.github-img {
+  filter: invert(1) saturate(0) brightness(1.8);
+}
+
+.download-btn {
+  width: 240px;
+  min-height: 64px;
+  padding: 12px 18px;
+  background-color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  font-size: 14px;
+  font-weight: 500;
+  color: #000000;
+  text-decoration: none;
+}
+
+.download-btn:hover {
+  transform: translateY(-2px);
+}
+
+.btn-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 2px;
+  min-width: 0;
+}
+
+.btn-text {
+  font-size: 1rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.btn-download-count {
+  font-size: 0.72rem;
+  font-weight: 500;
+  line-height: 1.1;
+  color: rgba(0, 0, 0, 0.62);
+  white-space: nowrap;
+}
+
+.btn-icon {
+  width: 20px;
+  height: 20px;
+  object-fit: contain;
+}
+
+.features-section {
+  padding: 100px 60px;
+  background: #000000;
+  position: relative;
+  z-index: 10;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s ease-out;
+}
+
+.features-section.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 80px;
+}
+
+.features-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #ffffff, #cccccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.features-subtitle {
+  font-size: 1.3rem;
+  color: #cccccc;
+  font-weight: 300;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.features-categories {
+  display: flex;
+  flex-direction: column;
+  gap: 60px;
+  margin-top: 60px;
+}
+
+.feature-category {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.feature-category-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.45);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  padding-bottom: 12px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  margin-top: 0;
+  align-items: start;
+}
+
+.feature-card {
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 24px;
+  text-align: left;
+  transition: all 0.2s ease;
+  backdrop-filter: blur(10px);
+  position: relative;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.feature-card:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 24px rgba(255, 255, 255, 0.1);
+}
+
+
+.feature-title {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 8px;
+  line-height: 1.3;
+}
+
+.feature-description {
+  font-size: 0.9rem;
+  color: #cccccc;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.faq-section {
+  padding: 100px 60px;
+  background: #000000;
+  position: relative;
+  z-index: 10;
+}
+
+.faq-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.faq-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.faq-title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #ffffff, #cccccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.faq-subtitle {
+  font-size: 1.2rem;
+  color: #cccccc;
+  font-weight: 300;
+}
+
+.faq-list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.faq-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.faq-item:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  background: transparent;
+}
+
+.faq-question {
+  padding: 25px 30px;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 0.3s ease;
+}
+
+.faq-question:hover {
+  background: transparent;
+}
+
+.faq-question h3 {
+  font-size: 1.2rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin: 0;
+  flex: 1;
+}
+
+.faq-toggle {
+  font-size: 1.5rem;
+  color: #ffffff;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+
+.faq-item.active .faq-toggle {
+  transform: rotate(45deg);
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 200px;
+}
+
+.faq-answer p {
+  padding: 0 30px 25px 30px;
+  color: #cccccc;
+  line-height: 1.6;
+  margin: 0;
+}
+
+.footer {
+  background: #000000;
+  padding: 60px 0 20px;
+  position: relative;
+  z-index: 10;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 0;
+}
+
+.footer-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 60px;
+}
+
+.footer-content {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 60px;
+  /* increase horizontal gap so Quick Links are further right */
+  margin-bottom: 40px;
+  align-items: start;
+}
+
+/* Position the second footer column (Quick Links) to the right on larger screens
+   but keep its internal text left-to-right for readability */
+.footer-content>.footer-section:last-child {
+  align-items: flex-end;
+}
+
+/* Keep the column right-aligned but make the internal text read left-to-right
+   by constraining the inner content and left-aligning it. This keeps the
+   section visually on the right while the links themselves remain left-aligned. */
+.footer-content>.footer-section:last-child .footer-subtitle,
+.footer-content>.footer-section:last-child .footer-links {
+  text-align: left;
+  width: 260px;
+  /* reasonable width for the two-column links block */
+}
+
+.footer-content>.footer-section:last-child .footer-links {
+  display: block;
+  column-count: 2;
+  column-gap: 16px;
+}
+
+.footer-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.footer-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 15px;
+  background: linear-gradient(135deg, #ffffff, #cccccc);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.footer-description {
+  color: #cccccc;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  font-size: 0.95rem;
+}
+
+.footer-buttons {
+  display: flex;
+  gap: 15px;
+}
+
+.footer-btn {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+
+.footer-btn:hover {
+  transform: scale(1.05);
+}
+
+/* slightly smaller default icon height */
+.btn-image {
+  height: 38px;
+  width: auto;
+  border-radius: 8px;
+  display: block;
+}
+
+.footer-subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 20px;
+}
+
+.footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.footer-links li {
+  margin-bottom: 12px;
+}
+
+.footer-links a {
+  color: #cccccc;
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+}
+
+.footer-pixelsphere-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 20px;
+  width: 260px;
+}
+
+.footer-pixelsphere {
+  width: 140px;
+  height: auto;
+  display: block;
+}
+
+.footer-privacy-text {
+  margin-top: 8px;
+  font-size: 0.95rem;
+  color: #aaaaaa;
+}
+
+.footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 30px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.footer-copyright {
+  color: #999999;
+  font-size: 0.9rem;
+}
+
+.footer-copyright p {
+  margin: 0 0 5px 0;
+}
+
+.footer-social {
+  display: flex;
+  gap: 20px;
+}
+
+.social-link {
+  color: #cccccc;
+  text-decoration: none;
+  font-size: 0.9rem;
+  transition: color 0.3s ease;
+}
+
+.social-link:hover {
+  color: #ffffff;
+}
+
+.background-gif {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 2;
+  pointer-events: none;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.bg-gif {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0.6;
+}
+
+@media (max-width: 1200px) {
+  .main-content {
+    padding: 120px 40px 60px;
+  }
+
+  .main-title {
+    font-size: 3.5rem;
+  }
+
+  .phone-mockup {
+    width: 240px;
+    height: 480px;
+  }
+}
+
+.mobile-phone-container {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    flex-direction: column;
+    padding: 120px 20px 40px;
+    text-align: center;
+    gap: 50px;
+    min-height: 100vh;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 10;
+  }
+
+  .left-content {
+    display: none;
+  }
+
+  .phone-container {
+    display: none;
+  }
+
+  .right-content {
+    padding: 0;
+    text-align: center;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mobile-phone-container {
+    display: block !important;
+    margin-bottom: 50px;
+    margin-top: 20px;
+  }
+
+  .mobile-phone-mockup {
+    width: 250px;
+    height: 500px;
+    position: relative;
+  }
+
+  .mobile-phone-screen {
+    width: 100%;
+    height: 100%;
+    position: relative;
+  }
+
+  .mobile-screenshot {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 20px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+
+  .mobile-screenshot.active {
+    opacity: 1;
+  }
+
+  .qr-code {
+    display: none;
+  }
+
+  .download-btn {
+    width: 230px;
+    min-height: 56px;
+    font-size: 0.9rem;
+    margin: 0 auto;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .download-buttons {
+    gap: 15px;
+    margin-top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .background-gif {
+    display: none;
+  }
+
+  .features-section {
+    padding: 60px 20px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .features-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+  }
+
+  .features-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 35px;
+  }
+
+  .features-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px;
+  }
+
+  .feature-card {
+    padding: 20px;
+    text-align: left;
+    height: auto;
+  }
+
+  .faq-section {
+    padding: 60px 20px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .faq-title {
+    font-size: 2.2rem;
+    margin-bottom: 15px;
+  }
+
+  .faq-subtitle {
+    font-size: 0.95rem;
+    margin-bottom: 35px;
+  }
+
+  .faq-question {
+    padding: 20px;
+  }
+
+  .faq-question h3 {
+    font-size: 1rem;
+    line-height: 1.4;
+  }
+
+  .faq-answer p {
+    padding: 0 20px 20px 20px;
+    line-height: 1.6;
+    font-size: 0.9rem;
+  }
+
+  .footer-container {
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+  }
+
+  .footer-content {
+    grid-template-columns: 1fr;
+    gap: 25px;
+    text-align: center;
+  }
+
+  /* on small screens the footer columns should be centered and stacked */
+  .footer-content>.footer-section:last-child {
+    align-items: center;
+    text-align: center;
+  }
+
+  /* restore inner elements to centered on small screens (overrides desktop left-align) */
+  .footer-content>.footer-section:last-child .footer-subtitle,
+  .footer-content>.footer-section:last-child .footer-links {
+    text-align: center;
+    width: auto;
+  }
+
+  .footer-pixelsphere-wrap {
+    align-items: center;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+    gap: 15px;
+    text-align: center;
+  }
+
+  /* Layout footer buttons into two columns on small screens so they stack in two rows
+     (Discord + Telegram on top row, BuyMeACoffee + UPI on bottom row). Images will
+     scale to the available column width to avoid overflow. */
+  .footer-buttons {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .footer-btn {
+    display: block;
+    width: 100%;
+    max-width: 260px;
+    /* keeps very wide images from blowing out */
+    margin: 0 auto;
+  }
+
+  .btn-image {
+    max-width: 100%;
+    height: auto;
+    max-height: 32px;
+    /* constrain images on small screens */
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 480px) {
+  .logo {
+    font-size: 2rem;
+  }
+
+  .main-content {
+    padding: 100px 15px 30px;
+    gap: 35px;
+  }
+
+  .main-title {
+    font-size: 2.4rem;
+    line-height: 1.1;
+    font-weight: 800;
+  }
+
+  .subtitle {
+    font-size: 0.95rem;
+    line-height: 1.4;
+    opacity: 0.9;
+  }
+
+  .phone-mockup {
+    width: 200px;
+    height: 400px;
+    margin: 0 auto 25px;
+  }
+
+  .download-btn {
+    width: 220px;
+    min-height: 52px;
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .btn-text {
+    font-size: 0.95rem;
+  }
+
+  .btn-download-count {
+    font-size: 0.68rem;
+  }
+
+  .download-buttons {
+    gap: 12px;
+    margin-top: 15px;
+  }
+
+  /* slightly smaller icon sizes on very small screens */
+  .icon-link {
+    width: 56px;
+    height: 56px;
+    border-radius: 10px;
+  }
+
+  .icon-img {
+    width: 28px;
+    height: 28px;
+  }
+
+  .features-section {
+    padding: 50px 15px;
+  }
+
+  .features-title {
+    font-size: 1.9rem;
+  }
+
+  .features-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .feature-card {
+    padding: 22px 15px;
+  }
+
+  .feature-title {
+    font-size: 1.1rem;
+  }
+
+  .feature-description {
+    font-size: 0.85rem;
+  }
+
+  .faq-section {
+    padding: 50px 15px;
+  }
+
+  .faq-title {
+    font-size: 1.9rem;
+  }
+
+  .faq-subtitle {
+    font-size: 0.9rem;
+  }
+
+  .faq-question {
+    padding: 18px;
+  }
+
+  .faq-question h3 {
+    font-size: 0.95rem;
+  }
+
+  .faq-answer p {
+    padding: 0 18px 18px 18px;
+    font-size: 0.85rem;
+  }
+
+  .footer-container {
+    padding: 0 15px;
+  }
+
+  .footer-title {
+    font-size: 1.4rem;
+  }
+
+  .footer-description {
+    font-size: 0.85rem;
+  }
+
+  .btn-image {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .qr-code {
+    display: none;
+  }
+
+  .download-btn,
+  .faq-question,
+  .footer-btn {
+    min-height: 44px;
+    touch-action: manipulation;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  .header {
+    padding: 15px 0;
+  }
+
+  .logo {
+    font-size: 2.2rem;
+  }
+
+  .phone-mockup {
+    box-shadow: 0 20px 60px rgba(255, 255, 255, 0.1);
+  }
+}
+
+.mobile-phone-container {
+  display: none;
+}
+
+.mobile-bg-video {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .mobile-bg-video {
+    display: block;
+  }
+}
+
+/* Auto-download overlay styles */
+.auto-download-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  /* shown when release is found */
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+.auto-download-overlay[aria-hidden="false"] {
+  display: flex;
+}
+
+.auto-download-card {
+  background: #0b0b0b;
+  color: #fff;
+  padding: 20px 22px;
+  border-radius: 12px;
+  width: min(520px, calc(100% - 40px));
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), 0 6px 18px rgba(255, 255, 255, 0.02) inset;
+  text-align: center;
+}
+
+.auto-download-card h3 {
+  margin: 0 0 8px 0;
+  font-size: 1.25rem;
+}
+
+.auto-download-card .ad-body {
+  color: #cfcfcf;
+  font-size: 0.95rem;
+  max-height: 6.5rem;
+  overflow: hidden;
+  margin-bottom: 8px;
+}
+
+.auto-download-card .ad-info {
+  color: #9fa3a6;
+  font-size: 0.9rem;
+  margin-bottom: 10px;
+}
+
+.auto-download-card .ad-countdown {
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Crypto section styles */
+.crypto-section {
+  margin-top: 30px;
+  padding-top: 25px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.crypto-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 15px;
+}
+
+.crypto-addresses {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.crypto-item {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  padding: 12px 15px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.crypto-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-2px);
+}
+
+.crypto-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-bottom: 5px;
+}
+
+.crypto-address {
+  display: block;
+  font-size: 0.75rem;
+  color: #cccccc;
+  font-family: monospace;
+  word-break: break-all;
+  line-height: 1.4;
+}
+
+.copy-feedback {
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  background: #4caf50;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.copy-feedback.show {
+  opacity: 1;
+}
+
+@media (max-width: 768px) {
+  .crypto-section {
+    margin-top: 25px;
+    padding-top: 20px;
+  }
+
+  .crypto-title {
+    font-size: 1rem;
+    text-align: center;
+  }
+
+  .crypto-addresses {
+    gap: 10px;
+  }
+
+  .crypto-item {
+    padding: 10px 12px;
+  }
+
+  .crypto-label {
+    font-size: 0.8rem;
+  }
+
+  .crypto-address {
+    font-size: 0.7rem;
+  }
+
+  .copy-feedback {
+    position: static;
+    transform: none;
+    display: block;
+    margin-top: 5px;
+    text-align: center;
+  }
+}
+
+/* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background-color: rgba(20, 20, 20, 0.95);
+  padding: 50px 40px;
+  border-radius: 24px;
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  text-align: center;
+  transform: scale(0.95) translateY(10px);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+
+.modal.show .modal-content {
+  transform: scale(1) translateY(0);
+}
+
+.close-modal {
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 24px;
+  cursor: pointer;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s ease;
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.close-modal:hover {
+  color: #fff;
+  background: rgba(255, 255, 255, 0.15);
+  transform: rotate(90deg);
+}
+
+.modal h2 {
+  color: #fff;
+  margin-bottom: 10px;
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+
+.modal-subtitle {
+  color: #888;
+  font-size: 0.95rem;
+  margin-bottom: 40px;
+  font-weight: 400;
+}
+
+.platform-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.platform-btn {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 16px;
+  padding: 16px 20px;
+  text-decoration: none;
+  color: #fff;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.platform-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.platform-btn:active {
+  transform: translateY(0);
+}
+
+.platform-btn img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  /* Make icons white/monochrome for cleaner look */
+  filter: grayscale(100%) brightness(1.5);
+  transition: filter 0.2s ease;
+}
+
+.platform-btn:hover img {
+  filter: none;
+}
+
+.platform-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.platform-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.platform-status {
+  font-size: 0.75rem;
+  color: #666;
+  margin-top: 2px;
+}
+
+.platform-btn:hover .platform-status {
+  color: #999;
+}
+
+@media (max-width: 600px) {
+  .modal-content {
+    padding: 30px 20px;
+    width: 90%;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+
+  .modal h2 {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+  }
+
+  .modal-subtitle {
+    font-size: 0.85rem;
+    margin-bottom: 25px;
+  }
+
+  .platform-options {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .platform-btn {
+    padding: 14px 16px;
+  }
+
+  .platform-name {
+    font-size: 0.95rem;
+  }
+}
+
+/* Linux Options Styles */
+.linux-options {
+  display: none;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  padding: 0;
+  opacity: 0;
+  transform: translateY(10px);
+  transition: all 0.3s ease;
+}
+
+.linux-header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.linux-header h3 {
+  font-size: 1.1rem;
+  color: #ffffff;
+  margin: 0;
+  font-weight: 600;
+}
+
+.linux-formats {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.linux-format-btn {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  text-decoration: none;
+  color: #ffffff;
+  transition: all 0.2s ease;
+}
+
+.linux-format-btn:hover {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.format-name {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.format-type {
+  font-size: 0.8rem;
+  color: #aaaaaa;
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2px 8px;
+  border-radius: 4px;
+}
+
+.back-btn {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+  padding: 8px 14px 8px 10px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 0.85rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.back-btn::before {
+  content: "«";
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  margin-right: 2px;
+  transition: transform 0.2s ease;
+}
+
+.back-btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.back-btn:hover::before {
+  transform: translateX(-2px);
+}
+
+.back-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
