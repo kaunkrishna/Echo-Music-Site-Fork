@@ -161,8 +161,8 @@ Copyright (c) 2024 Echo Music
 
 ## Support
 
-- **Issues**: [GitHub Issues](https://github.com/EchoMusicApp/website/issues)
-- **Discussions**: [GitHub Discussions](https://github.com/EchoMusicApp/website/discussions)
+- **Issues**: [GitHub Issues](https://github.com/EchoMusicApp/Echo-Music-Site/issues)
+- **Discussions**: [GitHub Discussions](https://github.com/EchoMusicApp/Echo-Music-Site/discussions)
 - **Discord**: [Echo Music Discord](https://discord.com/invite/EcfV3AxH5c)
 
 ---
