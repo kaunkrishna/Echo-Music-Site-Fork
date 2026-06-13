@@ -1065,6 +1065,14 @@
       } else {
         navbar.classList.remove('visible');
       }
+
+      const fabBubble = document.querySelector('.support-msg-bubble');
+      if (currentScrollY > 50) {
+        if (fabBubble) fabBubble.classList.add('show');
+        if (typeof startTypeWriter === 'function') startTypeWriter();
+      } else {
+        if (fabBubble) fabBubble.classList.remove('show');
+      }
     }, {passive: true});
 
     async function fetchLiveStats() {
@@ -1200,27 +1208,30 @@
       faqObserver.observe(item);
     });
 
-    const fabBubble = document.querySelector('.support-msg-bubble');
     const typeText = document.getElementById('typewriter-text');
     const msg = "Hi! If you love Echo Music, consider supporting my work! ☕";
     let typeIndex = 0;
+    let hasTyped = false;
 
-    setTimeout(() => {
-      fabBubble.classList.add('show');
-      
-      function typeWriter() {
-        if (typeIndex < msg.length) {
-          typeText.innerHTML += msg.charAt(typeIndex);
-          typeIndex++;
-          setTimeout(typeWriter, 40); 
-        } else {
-
-          setTimeout(() => { document.querySelector('.cursor').style.display = 'none'; }, 2000);
-        }
+    function typeWriter() {
+      if (typeIndex < msg.length) {
+        typeText.innerHTML += msg.charAt(typeIndex);
+        typeIndex++;
+        setTimeout(typeWriter, 40); 
+      } else {
+        setTimeout(() => { 
+          const cursor = document.querySelector('.cursor');
+          if (cursor) cursor.style.display = 'none'; 
+        }, 2000);
       }
-      
-      setTimeout(typeWriter, 600);
-    }, 2500);
+    }
+
+    function startTypeWriter() {
+      if (!hasTyped) {
+        hasTyped = true;
+        setTimeout(typeWriter, 300);
+      }
+    }
 
   </script>
 </body>
