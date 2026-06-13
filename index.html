@@ -826,54 +826,48 @@
       
       <div class="marquee-group">
         <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/HomePage.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/HomePage.mp4" poster="./assets/Screenshot/HomePage.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Home</p>
         </div>
         <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/SearchPage.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/SearchPage.mp4" poster="./assets/Screenshot/SearchPage.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Search</p>
         </div>
+
         <div class="phone-mockup-wrapper">
-          <img src="./assets/Screenshot/LibraryPage.png" class="phone-mockup" alt="Library Screen">
-          <p class="caption" style="color: var(--muted)">Library</p>
-        </div>
-        <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/MusicPage.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/MusicPage.mp4" poster="./assets/Screenshot/MusicPage.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Now Playing</p>
         </div>
         <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/Lyrics.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/Lyrics.mp4" poster="./assets/Screenshot/Lyrics.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Lyrics</p>
         </div>
         <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/MusicRecognition.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/MusicRecognition.mp4" poster="./assets/Screenshot/MusicRecognition.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Recognition</p>
         </div>
       </div>
       
       <div class="marquee-group">
         <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/HomePage.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/HomePage.mp4" poster="./assets/Screenshot/HomePage.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Home</p>
         </div>
         <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/SearchPage.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/SearchPage.mp4" poster="./assets/Screenshot/SearchPage.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Search</p>
         </div>
+
         <div class="phone-mockup-wrapper">
-          <img src="./assets/Screenshot/LibraryPage.png" class="phone-mockup" alt="Library Screen">
-          <p class="caption" style="color: var(--muted)">Library</p>
-        </div>
-        <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/MusicPage.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/MusicPage.mp4" poster="./assets/Screenshot/MusicPage.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Now Playing</p>
         </div>
         <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/Lyrics.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/Lyrics.mp4" poster="./assets/Screenshot/Lyrics.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Lyrics</p>
         </div>
         <div class="phone-mockup-wrapper">
-          <video src="./assets/Screenshot/MusicRecognition.mp4" class="phone-mockup" autoplay loop muted playsinline></video>
+          <video src="./assets/Screenshot/MusicRecognition.mp4" poster="./assets/Screenshot/MusicRecognition.png" class="phone-mockup" autoplay loop muted playsinline></video>
           <p class="caption" style="color: var(--muted)">Recognition</p>
         </div>
       </div>
@@ -1087,15 +1081,25 @@
           if(starsEl) starsEl.innerHTML = `⭐ ${repoData.stargazers_count.toLocaleString()} GitHub Stars`;
         }
 
-        const relRes = await fetch('https://api.github.com/repos/EchoMusicApp/Echo-Music/releases/latest');
-        if (relRes.ok) {
-          const relData = await relRes.json();
+        const relsRes = await fetch('https://api.github.com/repos/EchoMusicApp/Echo-Music/releases?per_page=100');
+        if (relsRes.ok) {
+          const relsData = await relsRes.json();
           let dls = 0;
-          let apkUrl = relData.html_url;
-          relData.assets.forEach(a => {
-            dls += a.download_count;
-            if (a.name.endsWith('.apk')) apkUrl = a.browser_download_url;
+          let apkUrl = "";
+
+          relsData.forEach(rel => {
+            rel.assets.forEach(a => {
+              dls += a.download_count;
+            });
           });
+
+          const latestStable = relsData.find(r => !r.prerelease) || relsData[0];
+          if (latestStable) {
+            apkUrl = latestStable.html_url;
+            latestStable.assets.forEach(a => {
+              if (a.name.endsWith('.apk')) apkUrl = a.browser_download_url;
+            });
+          }
 
           if (dls > 0) {
             const dlEl = document.getElementById('stat-downloads');
