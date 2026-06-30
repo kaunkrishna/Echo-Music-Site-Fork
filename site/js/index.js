@@ -1,236 +1,288 @@
 (function () {
-  "use strict";
+  'use strict';
 
   const CONFIG = {
-    SCROLL_THRESHOLD: 150,
-    FAB_THRESHOLD: 50,
+    SCROLL_NAV_THRESHOLD: 150,
+    SCROLL_FAB_THRESHOLD: 50,
     RIPPLE_DURATION: 600,
     TYPEWRITER_SPEED: 40,
     TYPEWRITER_START_DELAY: 300,
     CURSOR_FADE_DELAY: 2000,
     FAQ_EXTRA_PADDING: 36,
-    API_REPO: "https://api.github.com/repos/EchoMusicApp/Echo-Music",
-    API_RELEASES: "https://api.github.com/repos/EchoMusicApp/Echo-Music/releases?per_page=100",
+    ENDPOINTS: {
+      LASTFM: 'https://lastfm-last-played.biancarosa.com.br/iad1tya/latest-song',
+      GITHUB_REPO: 'https://api.github.com/repos/EchoMusicApp/Echo-Music',
+      GITHUB_RELEASES: 'https://api.github.com/repos/EchoMusicApp/Echo-Music/releases?per_page=100'
+    }
   };
 
   const MESSAGE_STRING = "Hi! If you love Echo Music, consider supporting my work! ☕";
 
   const DOM = {
-    navbar: document.getElementById("navbar"),
-    fab: document.getElementById("support-fab"),
-    fabBubble: document.querySelector(".support-msg-bubble"),
-    typewriterText: document.getElementById("typewriter-text"),
-    cursor: document.querySelector(".cursor"),
-    statStars: document.getElementById("stat-stars"),
-    statDownloads: document.getElementById("stat-downloads"),
-    downloadButtons: document.querySelectorAll(".btn-download"),
-    rippleButtons: document.querySelectorAll(".btn.ripple"),
-    faqItems: document.querySelectorAll(".faq-item"),
-    featureCards: document.querySelectorAll(".feature-card"),
+    navbar: document.getElementById('navbar'),
+    footer: document.querySelector('footer'),
+    
+    supportFab: document.getElementById('support-fab'),
+    supportBtn: document.querySelector('.support-btn'),
+    fabBubble: document.querySelector('.support-msg-bubble'),
+    lastfmBubble: document.getElementById('lastfm-bubble'),
+    
+    typewriterText: document.getElementById('typewriter-text'),
+    cursor: document.querySelector('.cursor'),
+    
+    lastfmTrack: document.getElementById('lastfm-track'),
+    lastfmArtist: document.getElementById('lastfm-artist'),
+    lastfmArt: document.getElementById('lastfm-art'),
+    lastfmStatus: document.getElementById('lastfm-status'),
+    
+    statStars: document.getElementById('stat-stars'),
+    statDownloads: document.getElementById('stat-downloads'),
+    downloadButtons: document.querySelectorAll('.btn-download'),
+    
+    rippleButtons: document.querySelectorAll('.btn.ripple'),
+    faqItems: document.querySelectorAll('.faq-item'),
+    featureCards: document.querySelectorAll('.feature-card')
   };
 
   let state = {
     isScrollTicking: false,
     hasTypewriterTyped: false,
-    typewriterIndex: 0,
+    typewriterIndex: 0
   };
 
-  function evaluateScrollExecutionState() {
+  function evaluateScrollState() {
     const currentScrollY = window.scrollY;
 
-    if (currentScrollY > CONFIG.SCROLL_THRESHOLD) {
-      DOM.navbar.classList.add("visible");
+    if (currentScrollY > CONFIG.SCROLL_NAV_THRESHOLD) {
+      DOM.navbar?.classList.add('visible');
     } else {
-      DOM.navbar.classList.remove("visible");
+      DOM.navbar?.classList.remove('visible');
     }
 
-    if (currentScrollY > CONFIG.FAB_THRESHOLD) {
-      if (DOM.fabBubble) DOM.fabBubble.classList.add("show");
-      triggerTypewriterProcessingSequence();
+    const scrollPosition = currentScrollY + window.innerHeight;
+    const bodyHeight = document.body.offsetHeight;
+    const footerHeight = DOM.footer ? DOM.footer.offsetHeight : 0;
+    const isNearBottom = scrollPosition > (bodyHeight - footerHeight + 20);
+
+    if (DOM.supportFab) {
+      DOM.supportFab.style.opacity = isNearBottom ? '0' : '1';
+      if (DOM.supportBtn) {
+        DOM.supportBtn.style.pointerEvents = isNearBottom ? 'none' : 'auto';
+      }
+    }
+
+    if (currentScrollY > CONFIG.SCROLL_FAB_THRESHOLD && !isNearBottom) {
+      DOM.fabBubble?.classList.add('show');
+      DOM.lastfmBubble?.classList.add('show');
+      triggerTypewriter();
     } else {
-      if (DOM.fabBubble) DOM.fabBubble.classList.remove("show");
+      DOM.fabBubble?.classList.remove('show');
+      DOM.lastfmBubble?.classList.remove('show');
     }
 
     state.isScrollTicking = false;
   }
 
-  function onWindowScrollEvent() {
+  window.addEventListener('scroll', () => {
     if (!state.isScrollTicking) {
-      window.requestAnimationFrame(evaluateScrollExecutionState);
+      window.requestAnimationFrame(evaluateScrollState);
       state.isScrollTicking = true;
     }
-  }
-  window.addEventListener("scroll", onWindowScrollEvent, { passive: true });
+  }, { passive: true });
 
-  function typeCharacterStep() {
+  function typeCharacter() {
     if (state.typewriterIndex < MESSAGE_STRING.length) {
       DOM.typewriterText.textContent += MESSAGE_STRING.charAt(state.typewriterIndex);
       state.typewriterIndex++;
-      setTimeout(typeCharacterStep, CONFIG.TYPEWRITER_SPEED);
-      return;
+      setTimeout(typeCharacter, CONFIG.TYPEWRITER_SPEED);
+    } else {
+      setTimeout(() => {
+        if (DOM.cursor) DOM.cursor.style.display = 'none';
+      }, CONFIG.CURSOR_FADE_DELAY);
     }
-
-    setTimeout(() => {
-      if (DOM.cursor) DOM.cursor.style.display = "none";
-    }, CONFIG.CURSOR_FADE_DELAY);
   }
 
-  function triggerTypewriterProcessingSequence() {
-    if (state.hasTypewriterTyped) return;
-    state.hasTypewriterTyped = true;
-    setTimeout(typeCharacterStep, CONFIG.TYPEWRITER_START_DELAY);
+  function triggerTypewriter() {
+    if (!state.hasTypewriterTyped && DOM.typewriterText) {
+      state.hasTypewriterTyped = true;
+      setTimeout(typeCharacter, CONFIG.TYPEWRITER_START_DELAY);
+    }
   }
 
-  async function invokeGitHubLiveStatisticsFetch() {
+  function getTimeAgo(uts) {
+    const seconds = Math.floor(Date.now() / 1000) - uts;
+    if (seconds < 60) return "Just now";
+    
+    const minutes = Math.floor(seconds / 60);
+    if (minutes < 60) return minutes + (minutes === 1 ? " min ago" : " mins ago");
+    
+    const hours = Math.floor(minutes / 60);
+    if (hours < 24) return hours + (hours === 1 ? " hr ago" : " hrs ago");
+    
+    const days = Math.floor(hours / 24);
+    return days + (days === 1 ? " day ago" : " days ago");
+  }
+
+  async function fetchLastFm() {
     try {
-      const repositoryMetricsResponse = await fetch(CONFIG.API_REPO);
-      if (repositoryMetricsResponse.ok) {
-        const repositoryData = await repositoryMetricsResponse.json();
-        if (DOM.statStars && repositoryData.stargazers_count) {
-          DOM.statStars.innerHTML = `⭐ ${repositoryData.stargazers_count.toLocaleString()} GitHub Stars`;
+      const res = await fetch(CONFIG.ENDPOINTS.LASTFM);
+      if (!res.ok) return;
+      
+      const data = await res.json();
+      const track = data?.track;
+      if (!track) return;
+
+      if (DOM.lastfmTrack) DOM.lastfmTrack.textContent = track.name;
+      if (DOM.lastfmArtist) DOM.lastfmArtist.textContent = track.artist?.['#text'];
+      if (DOM.lastfmBubble) DOM.lastfmBubble.href = track.url;
+      
+      if (DOM.lastfmArt) {
+        let artUrl = "";
+        if (track.image?.length > 0) {
+          const imgObj = track.image.find(i => i.size === 'extralarge') || track.image.find(i => i.size === 'large') || track.image[track.image.length - 1];
+          artUrl = imgObj?.['#text'] || "";
+        }
+        
+        DOM.lastfmArt.src = artUrl;
+        DOM.lastfmArt.style.display = artUrl ? 'block' : 'none';
+      }
+
+      if (DOM.lastfmStatus) {
+        if (track['@attr']?.nowplaying) {
+          DOM.lastfmStatus.textContent = 'Listening now';
+          DOM.lastfmStatus.style.color = '#10b981';
+        } else {
+          DOM.lastfmStatus.style.color = 'var(--muted)';
+          DOM.lastfmStatus.textContent = track.date?.uts ? getTimeAgo(parseInt(track.date.uts)) : 'Recently Played';
+        }
+      }
+    } catch (error) {
+      console.warn("Telemetry fault: Last.fm fetch failed.", error);
+    }
+  }
+
+  async function fetchGitHubStats() {
+    try {
+      const repoRes = await fetch(CONFIG.ENDPOINTS.GITHUB_REPO);
+      if (repoRes.ok) {
+        const repoData = await repoRes.json();
+        if (DOM.statStars && repoData.stargazers_count) {
+          DOM.statStars.innerHTML = `⭐ ${repoData.stargazers_count.toLocaleString()} GitHub Stars`;
         }
       }
 
-      const assetDistributionResponse = await fetch(CONFIG.API_RELEASES);
-      if (assetDistributionResponse.ok) {
-        const analyticalDistributionPayload = await assetDistributionResponse.json();
-        let accumulatedDownloadMetrics = 0;
-        let targetDistributionUrl = "";
+      const relsRes = await fetch(CONFIG.ENDPOINTS.GITHUB_RELEASES);
+      if (relsRes.ok) {
+        const relsData = await relsRes.json();
+        let totalDownloads = 0;
+        let apkUrl = "";
 
-        analyticalDistributionPayload.forEach((releaseItem) => {
-          if (releaseItem.assets) {
-            releaseItem.assets.forEach((assetItem) => {
-              accumulatedDownloadMetrics += assetItem.download_count;
-            });
-          }
+        relsData.forEach(rel => {
+          rel.assets?.forEach(asset => totalDownloads += asset.download_count);
         });
 
-        const prioritizedStableRelease = analyticalDistributionPayload.find((r) => !r.prerelease) || analyticalDistributionPayload[0];
-        if (prioritizedStableRelease) {
-          targetDistributionUrl = prioritizedStableRelease.html_url;
-          prioritizedStableRelease.assets.forEach((assetItem) => {
-            if (assetItem.name.endsWith(".apk")) {
-              targetDistributionUrl = assetItem.browser_download_url;
-            }
+        const latestStable = relsData.find(r => !r.prerelease) || relsData[0];
+        if (latestStable) {
+          apkUrl = latestStable.html_url;
+          latestStable.assets?.forEach(asset => {
+            if (asset.name.endsWith('.apk')) apkUrl = asset.browser_download_url;
           });
         }
 
-        if (accumulatedDownloadMetrics > 0 && DOM.statDownloads) {
-          DOM.statDownloads.innerHTML = `📦 ${accumulatedDownloadMetrics.toLocaleString()}+ Downloads`;
+        if (totalDownloads > 0 && DOM.statDownloads) {
+          DOM.statDownloads.innerHTML = `📦 ${totalDownloads.toLocaleString()}+ Downloads`;
         }
-
-        if (targetDistributionUrl) {
-          DOM.downloadButtons.forEach((downloadElementReference) => {
-            downloadElementReference.href = targetDistributionUrl;
-          });
+        
+        if (apkUrl) {
+          DOM.downloadButtons.forEach(btn => btn.href = apkUrl);
         }
       }
-    } catch (errorContextCatch) {
-      console.warn("Telemetry system fault: Unable to populate asset metrics mapping.", errorContextCatch);
+    } catch (error) {
+      console.warn("Telemetry fault: GitHub stats fetch failed.", error);
     }
   }
-  invokeGitHubLiveStatisticsFetch();
 
-  function deployMaterialRippleContext(event) {
-    const interactiveButton = event.currentTarget;
-    const rippleGraphicElement = document.createElement("span");
+  fetchLastFm();
+  fetchGitHubStats();
 
-    const boundingDimensions = interactiveButton.getBoundingClientRect();
-    const absoluteDiameter = Math.max(interactiveButton.clientWidth, interactiveButton.clientHeight);
-    const radiusOffsetVal = absoluteDiameter / 2;
+  function applyRipple(event) {
+    const button = event.currentTarget;
+    const circle = document.createElement("span");
+    const rect = button.getBoundingClientRect();
+    
+    const diameter = Math.max(button.clientWidth, button.clientHeight);
+    const radius = diameter / 2;
 
-    let inputClientCoordinateX = 0;
-    let inputClientCoordinateY = 0;
+    const x = (event.touches ? event.touches[0].clientX : event.clientX) - rect.left;
+    const y = (event.touches ? event.touches[0].clientY : event.clientY) - rect.top;
 
-    if (event.touches && event.touches.length > 0) {
-      inputClientCoordinateX = event.touches[0].clientX - boundingDimensions.left;
-      inputClientCoordinateY = event.touches[0].clientY - boundingDimensions.top;
-    } else {
-      inputClientCoordinateX = event.clientX - boundingDimensions.left;
-      inputClientCoordinateY = event.clientY - boundingDimensions.top;
-    }
+    circle.style.width = circle.style.height = `${diameter}px`;
+    circle.style.left = `${x - radius}px`;
+    circle.style.top = `${y - radius}px`;
+    circle.classList.add("ripple-span");
 
-    rippleGraphicElement.style.width = rippleGraphicElement.style.height = `${absoluteDiameter}px`;
-    rippleGraphicElement.style.left = `${inputClientCoordinateX - radiusOffsetVal}px`;
-    rippleGraphicElement.style.top = `${inputClientCoordinateY - radiusOffsetVal}px`;
-    rippleGraphicElement.classList.add("ripple-span");
-
-    const structuralRippleObsoleteTarget = interactiveButton.querySelector(".ripple-span");
-    if (structuralRippleObsoleteTarget) {
-      structuralRippleObsoleteTarget.remove();
-    }
-
-    interactiveButton.appendChild(rippleGraphicElement);
-    setTimeout(() => rippleGraphicElement.remove(), CONFIG.RIPPLE_DURATION);
+    button.querySelector('.ripple-span')?.remove();
+    button.appendChild(circle);
+    
+    setTimeout(() => circle.remove(), CONFIG.RIPPLE_DURATION);
   }
 
-  DOM.rippleButtons.forEach((rippleBindingTarget) => {
-    rippleBindingTarget.addEventListener("mousedown", deployMaterialRippleContext);
-    rippleBindingTarget.addEventListener("touchstart", deployMaterialRippleContext, { passive: true });
+  DOM.rippleButtons.forEach(btn => {
+    btn.addEventListener('mousedown', applyRipple);
+    btn.addEventListener('touchstart', applyRipple, { passive: true });
   });
 
-  DOM.faqItems.forEach((currentFaqElementBlock) => {
-    const interactiveTriggerElement = currentFaqElementBlock.querySelector(".faq-question");
-    const internalPanelContentWrapper = currentFaqElementBlock.querySelector(".faq-answer");
-    const conceptualIndicatorSymbol = currentFaqElementBlock.querySelector(".faq-icon");
+  DOM.faqItems.forEach(item => {
+    const question = item.querySelector('.faq-question');
+    const answer = item.querySelector('.faq-answer');
+    const icon = item.querySelector('.faq-icon');
 
-    if (!interactiveTriggerElement || !internalPanelContentWrapper) return;
+    if (!question || !answer) return;
 
-    interactiveTriggerElement.addEventListener("click", () => {
-      const isCurrentlyExpanded = currentFaqElementBlock.classList.contains("open");
-
-      DOM.faqItems.forEach((alternativeFaqRowElement) => {
-        if (alternativeFaqRowElement !== currentFaqElementBlock) {
-          alternativeFaqRowElement.classList.remove("open");
-
-          const rowTrigger = alternativeFaqRowElement.querySelector(".faq-question");
-          const rowIcon = alternativeFaqRowElement.querySelector(".faq-icon");
-          const rowAnswer = alternativeFaqRowElement.querySelector(".faq-answer");
-
-          if (rowTrigger) rowTrigger.setAttribute("aria-expanded", "false");
-          if (rowIcon) rowIcon.textContent = "+";
-          if (rowAnswer) rowAnswer.style.maxHeight = null;
+    question.addEventListener('click', () => {
+      const isExpanded = item.classList.contains('open');
+      
+      DOM.faqItems.forEach(sibling => {
+        if (sibling !== item) {
+          sibling.classList.remove('open');
+          if (sibling.querySelector('.faq-icon')) sibling.querySelector('.faq-icon').textContent = '+';
+          if (sibling.querySelector('.faq-answer')) sibling.querySelector('.faq-answer').style.maxHeight = null;
         }
       });
 
-      if (isCurrentlyExpanded) {
-        currentFaqElementBlock.classList.remove("open");
-        interactiveTriggerElement.setAttribute("aria-expanded", "false");
-        conceptualIndicatorSymbol.textContent = "+";
-        internalPanelContentWrapper.style.maxHeight = null;
+      if (isExpanded) {
+        item.classList.remove('open');
+        icon.textContent = '+';
+        answer.style.maxHeight = null;
       } else {
-        currentFaqElementBlock.classList.add("open");
-        interactiveTriggerElement.setAttribute("aria-expanded", "true");
-        conceptualIndicatorSymbol.textContent = "−";
-        internalPanelContentWrapper.style.maxHeight = `${internalPanelContentWrapper.scrollHeight + CONFIG.FAQ_EXTRA_PADDING}px`;
+        item.classList.add('open');
+        icon.textContent = '−';
+        answer.style.maxHeight = `${answer.scrollHeight + CONFIG.FAQ_EXTRA_PADDING}px`; 
       }
     });
   });
 
-  const generalizedViewportObserver = new IntersectionObserver(
-    (monitoredDataEntries, systemObserverInstance) => {
-      monitoredDataEntries.forEach((realtimePayloadItem) => {
-        if (!realtimePayloadItem.isIntersecting) return;
-
-        const targetContextElement = realtimePayloadItem.target;
-        targetContextElement.classList.add("visible");
-        systemObserverInstance.unobserve(targetContextElement);
-      });
-    },
-    {
-      root: null,
-      rootMargin: "0px 0px -50px 0px",
-      threshold: 0.1,
-    },
-  );
-
-  DOM.featureCards.forEach((cardContextNode, internalIndexKey) => {
-    cardContextNode.style.transitionDelay = `${internalIndexKey * 80}ms`;
-    generalizedViewportObserver.observe(cardContextNode);
+  const scrollRevealObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    root: null,
+    rootMargin: '0px 0px -50px 0px',
+    threshold: 0.1
   });
 
-  DOM.faqItems.forEach((faqContextNode, internalIndexKey) => {
-    faqContextNode.style.transitionDelay = `${internalIndexKey * 60}ms`;
-    generalizedViewportObserver.observe(faqContextNode);
+  DOM.featureCards.forEach((card, index) => {
+    card.style.transitionDelay = `${index * 80}ms`;
+    scrollRevealObserver.observe(card);
   });
+
+  DOM.faqItems.forEach((item, index) => {
+    item.style.transitionDelay = `${index * 60}ms`;
+    scrollRevealObserver.observe(item);
+  });
+
 })();
