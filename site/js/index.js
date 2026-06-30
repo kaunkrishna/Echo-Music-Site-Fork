@@ -1,9 +1,6 @@
 (function () {
   "use strict";
 
-  /* ==========================================================================
-        1. CONSTANTS & SYSTEM CONFIGURATION SYSTEM
-        ========================================================================== */
   const CONFIG = {
     SCROLL_THRESHOLD: 150,
     FAB_THRESHOLD: 50,
@@ -18,9 +15,6 @@
 
   const MESSAGE_STRING = "Hi! If you love Echo Music, consider supporting my work! ☕";
 
-  /* ==========================================================================
-         2. CENTRAL DOM CACHE LAYER REGISTRY
-         ========================================================================== */
   const DOM = {
     navbar: document.getElementById("navbar"),
     fab: document.getElementById("support-fab"),
@@ -35,29 +29,21 @@
     featureCards: document.querySelectorAll(".feature-card"),
   };
 
-  /* ==========================================================================
-         3. MOTION INTERPOLATION STATE CONTROLLERS
-         ========================================================================== */
   let state = {
     isScrollTicking: false,
     hasTypewriterTyped: false,
     typewriterIndex: 0,
   };
 
-  /**
-   * High Performance Coordinate Context Windows Multi-Scroll Loop Engine
-   */
   function evaluateScrollExecutionState() {
     const currentScrollY = window.scrollY;
 
-    // Navbar Performance View Translation
     if (currentScrollY > CONFIG.SCROLL_THRESHOLD) {
       DOM.navbar.classList.add("visible");
     } else {
       DOM.navbar.classList.remove("visible");
     }
 
-    // Floating Action Button Interaction Dynamic Tracking
     if (currentScrollY > CONFIG.FAB_THRESHOLD) {
       if (DOM.fabBubble) DOM.fabBubble.classList.add("show");
       triggerTypewriterProcessingSequence();
@@ -76,9 +62,6 @@
   }
   window.addEventListener("scroll", onWindowScrollEvent, { passive: true });
 
-  /* ==========================================================================
-         4. TYPEWRITER EMULATION MACHINE LOGIC
-         ========================================================================== */
   function typeCharacterStep() {
     if (state.typewriterIndex < MESSAGE_STRING.length) {
       DOM.typewriterText.textContent += MESSAGE_STRING.charAt(state.typewriterIndex);
@@ -98,12 +81,8 @@
     setTimeout(typeCharacterStep, CONFIG.TYPEWRITER_START_DELAY);
   }
 
-  /* ==========================================================================
-         5. ASYNCHRONOUS GITHUB ENDPOINT ANALYTICS LOADER
-         ========================================================================== */
   async function invokeGitHubLiveStatisticsFetch() {
     try {
-      // Asynchronous Repository Meta Data Interrogation Sequence
       const repositoryMetricsResponse = await fetch(CONFIG.API_REPO);
       if (repositoryMetricsResponse.ok) {
         const repositoryData = await repositoryMetricsResponse.json();
@@ -112,7 +91,6 @@
         }
       }
 
-      // Asynchronous Release Bundle Audit & Accumulation Sequence
       const assetDistributionResponse = await fetch(CONFIG.API_RELEASES);
       if (assetDistributionResponse.ok) {
         const analyticalDistributionPayload = await assetDistributionResponse.json();
@@ -153,9 +131,6 @@
   }
   invokeGitHubLiveStatisticsFetch();
 
-  /* ==========================================================================
-         6. COMPONENT ANIMATION MOTIONS & RIPPLES ENGINE
-         ========================================================================== */
   function deployMaterialRippleContext(event) {
     const interactiveButton = event.currentTarget;
     const rippleGraphicElement = document.createElement("span");
@@ -194,9 +169,7 @@
     rippleBindingTarget.addEventListener("touchstart", deployMaterialRippleContext, { passive: true });
   });
 
-  /* ==========================================================================
-         7. MODULE: MULTI-PANEL VIEW COMPONENT ACCORDIONS
-         ========================================================================== */
+
   DOM.faqItems.forEach((currentFaqElementBlock) => {
     const interactiveTriggerElement = currentFaqElementBlock.querySelector(".faq-question");
     const internalPanelContentWrapper = currentFaqElementBlock.querySelector(".faq-answer");
@@ -207,7 +180,6 @@
     interactiveTriggerElement.addEventListener("click", () => {
       const isCurrentlyExpanded = currentFaqElementBlock.classList.contains("open");
 
-      // Structural Reset / Auto-Accordion functionality close out
       DOM.faqItems.forEach((alternativeFaqRowElement) => {
         if (alternativeFaqRowElement !== currentFaqElementBlock) {
           alternativeFaqRowElement.classList.remove("open");
@@ -222,7 +194,6 @@
         }
       });
 
-      // Process operational state swap transformations
       if (isCurrentlyExpanded) {
         currentFaqElementBlock.classList.remove("open");
         interactiveTriggerElement.setAttribute("aria-expanded", "false");
@@ -237,9 +208,6 @@
     });
   });
 
-  /* ==========================================================================
-         8. SHARED EFFICIENCY INTERSECTION OBSERVER PIPELINE
-         ========================================================================== */
   const generalizedViewportObserver = new IntersectionObserver(
     (monitoredDataEntries, systemObserverInstance) => {
       monitoredDataEntries.forEach((realtimePayloadItem) => {
@@ -257,7 +225,6 @@
     },
   );
 
-  // Map components across the dynamic view engine instance pipelines
   DOM.featureCards.forEach((cardContextNode, internalIndexKey) => {
     cardContextNode.style.transitionDelay = `${internalIndexKey * 80}ms`;
     generalizedViewportObserver.observe(cardContextNode);
