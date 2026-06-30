@@ -1,0 +1,267 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Settings & FAQ - Echo Music</title>
+    <meta name="description" content="Frequently asked questions and a comprehensive guide to all the settings and features in Echo Music." />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/faq.css" />
+
+    <link rel="icon" href="./assets/images/echo.png" />
+  </head>
+  <body>
+    <nav id="navbar">
+      <div class="container nav-inner">
+        <a href="index.html" class="nav-logo display-font">
+          <img src="./assets/images/echo.png" alt="Echo Music Logo" class="nav-logo-img" />
+          Echo Music
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="btn btn-secondary" style="height: 40px; padding: 0 20px">Home</a>
+          <a href="https://github.com/EchoMusicApp/Echo-Music/releases/latest" class="btn btn-primary" style="height: 40px; padding: 0 20px">Download</a>
+        </div>
+      </div>
+    </nav>
+
+    <header class="hero container">
+      <h1 class="display-xl">Settings & FAQ</h1>
+      <p class="hero-sub body-md">A comprehensive guide to configuring Echo Music, resolving common issues, and mastering every feature.</p>
+    </header>
+
+    <section class="faq-section container">
+      <div class="search-container">
+        <input type="text" id="faqSearch" class="search-input" placeholder="Search for settings or features... (e.g., Spotify, Lyrics, Cast)" />
+      </div>
+      <div id="noResults" class="no-results body-md">No matching questions found.</div>
+
+      <h2 class="faq-category title-lg">General & Interface</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">How do I change the app's theme or colors?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Go to <strong>Settings > Interface</strong>. You can toggle between Dark, Light, or Follow System modes. For OLED displays, you can enable <strong>Pure black</strong>. You can also enable the <strong>Dynamic theme (Material You)</strong> to match your system colors, and even customize the Player background style and Player button colors directly.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">What is "Echo Brain" and how do I use it?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Echo Brain is an experimental AI recommendation engine that learns your listening habits, maps discovered genres, and injects AI recommendations. You can enable it in Settings. You also have full control over your Neural Profile, with options to export, import, or completely reset it.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">Can I customize the player controls and navigation?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Yes. In <strong>Settings > Interface</strong>, you can customize the navigation tabs (hide or show Home, Music, Playlists, etc.), change the Player slider style (Default, Apple Music, or Wavy), and tweak the Mini-player's appearance.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="faq-category title-lg">Tools & Features</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">How do I use Music Recognition?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Echo Music includes a built-in Music Recognizer. You can add the "Recognize music" tile to your Android Quick Settings panel. Tapping it will listen to your surroundings to identify the playing song, which you can then instantly listen to on Echo Music.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">How do I import my music from Spotify?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">In the Settings menu under <strong>Integrations</strong>, you can connect your Spotify account. From there, you can choose playlists (including your Liked Songs) and mirror them directly into local Echo Music playlists. You can also import any public Spotify playlist simply by pasting its link!</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="faq-category title-lg">Player & Audio</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">What is Audio Offload? Should I enable it?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Audio Offload uses a dedicated, hardware-accelerated audio path for playback which can save battery life. However, it may cause issues with certain post-processing effects on some devices, and is automatically disabled if you turn on Crossfade.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">Does Echo Music support Gapless playback and Crossfade?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Yes! You can enable Crossfade in <strong>Settings > Player & Audio</strong>, and customize the crossfade duration. There is also an option to "Disable for gapless albums" to ensure gapless albums play seamlessly.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">What is "Skip Silence"?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Enable "Skip silence" in the Player settings to automatically fast-forward through silent parts of songs. You can also select "Instantly skip silence" to jump ahead instead of just speeding up playback.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">Does Echo Music have an Equalizer?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Yes, Echo Music includes a professional-grade Equalizer with Simple and Advanced modes. It features Acoustic tuning, Bass Boost, custom profiles, Dirac/Dolby presets, and system equalizer support. Find it in <strong>Settings > Player & Audio > Equalizer</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="faq-category title-lg">Lyrics & Content</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">How do I get translated lyrics?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Echo Music supports AI Lyrics Translation. In <strong>Settings > Integrations</strong>, you can configure an AI provider, enter an API key, and select a Target Language to translate or transcribe lyrics automatically.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">What is Lyrics Romanization?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Romanization converts lyrics from scripts like Japanese, Korean, Cyrillic, and more into the Latin alphabet, making them easier to read. You can enable specific languages for romanization in the settings and choose if you want them displayed as the primary lyrics.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">Can I change the lyrics animation style?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Absolutely. Echo Music offers multiple word-by-word animation styles including Fade, Glow, Slide, Karaoke, Apple Music, and Vivi Music (Fluid). You can also adjust lyrics text size, line spacing, and blur effects for inactive lines.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="faq-category title-lg">Privacy & Integrations</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">How does "Listen Together" work?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Listen Together lets you listen to music with friends in real-time. You can create a room as a host and share the code, or join an existing room. Go to <strong>Settings > Integrations > Listen Together</strong> to configure the Server URL and your Username.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">Can I scrobble to Last.fm or ListenBrainz?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Yes. Connect your Last.fm and ListenBrainz accounts in <strong>Settings > Integrations</strong> to automatically track your listening history. You can even configure scrobble delays and minimum track durations.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">Does the app track my listening history?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Your listen and search history are stored purely locally on your device. You can pause or completely clear your history at any time under <strong>Settings > Privacy & Security</strong>.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="faq-category title-lg">Storage & Downloads</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">How do downloads and offline playback work?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">You can download playlists, albums, or individual songs. There is also an "Auto download on like" feature in <strong>Settings > Storage & Data</strong> that automatically saves any track you like for offline playback.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">Can I export my music as MP3?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Yes. Echo Music allows you to export downloaded music. First, you must set an "Export folder" in the Storage settings. Afterwards, you can use the Export option on songs to save them locally to your device with embedded metadata.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-question">
+            <h3 class="title-sm">My device is running out of space. What should I do?</h3>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-answer">
+            <p class="body-md">Navigate to <strong>Settings > Storage & Data</strong>. Here, you can limit the "Max song cache size" and "Max image cache size". You can also manually clear the song cache, image cache, or remove downloaded app updates to free up space instantly.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col-left">
+            <div class="footer-logo display-font">
+              <img src="./assets/images/echo.png" alt="Echo Music" />
+              Echo Music
+            </div>
+            <div class="footer-tagline body-sm">Free music for everyone.</div>
+            <div class="footer-disclaimer caption" style="margin-top: 16px; color: var(--muted); max-width: 280px; line-height: 1.4">Echo Music is a third-party YouTube Music client. Echo Music does not host or hold any of the audio content.</div>
+          </div>
+          <div class="footer-col-right">
+            <div class="footer-community">
+              <div class="title-sm" style="margin-bottom: 16px; color: var(--ink); font-size: 20px">Join the community</div>
+              <div class="social-links">
+                <a href="https://discord.com/invite/EcfV3AxH5c" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                  <img src="./assets/images/discord.png" alt="Discord" />
+                </a>
+                <a href="https://t.me/EchoMusicApp" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                  <img src="./assets/images/telegram.png" alt="Telegram" />
+                </a>
+              </div>
+            </div>
+            <div class="footer-nav nav-link" style="margin-top: 32px">
+              <a href="./status.html" class="footer-link">System Status</a>
+              <a href="./faq.html" class="footer-link">FAQ</a>
+              <a href="./https://canvas.echomusic.fun" class="footer-link" target="_blank" rel="noopener noreferrer">Echo Music Canvas</a>
+              <a href="./privacy.html" class="footer-link">Privacy Policy</a>
+              <a href="./terms.html" class="footer-link">Terms & Conditions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <script src="./js/faq.js"></script>
+  </body>
+</html>
