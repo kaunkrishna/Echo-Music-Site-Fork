@@ -281,7 +281,6 @@
   });
 
   DOM.faqItems.forEach((item, index) => {
-    item.style.transitionDelay = `${index * 60}ms`;
     scrollRevealObserver.observe(item);
   });
 
