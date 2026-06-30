@@ -1,62 +1,65 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Redirecting...</title>
-    <!-- Redirect after 2 seconds -->
-    <meta http-equiv="refresh" content="2;url=https://support.iad1tya.cyou/">
+
+    <meta http-equiv="refresh" content="2;url=https://support.iad1tya.cyou/" />
     <style>
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-            background-color: #ffffff;
-            color: #000000;
-            text-align: center;
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        background-color: #ffffff;
+        color: #000000;
+        text-align: center;
+      }
+      .container {
+        padding: 20px;
+      }
+      .spinner {
+        border: 4px solid rgba(0, 0, 0, 0.1);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        border-left-color: #000000;
+        animation: spin 1s linear infinite;
+        margin: 0 auto 20px auto;
+      }
+      @keyframes spin {
+        0% {
+          transform: rotate(0deg);
         }
-        .container {
-            padding: 20px;
+        100% {
+          transform: rotate(360deg);
         }
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border-left-color: #000000;
-            animation: spin 1s linear infinite;
-            margin: 0 auto 20px auto;
-        }
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        a {
-            color: #000000;
-            text-decoration: none;
-            margin-top: 15px;
-            display: inline-block;
-            font-size: 0.9em;
-        }
-        a:hover {
-            text-decoration: underline;
-        }
+      }
+      a {
+        color: #000000;
+        text-decoration: none;
+        margin-top: 15px;
+        display: inline-block;
+        font-size: 0.9em;
+      }
+      a:hover {
+        text-decoration: underline;
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <div class="container">
-        <div class="spinner"></div>
-        <h2>Redirecting to the Developer support page...</h2>
-        <p>If you are not redirected automatically, <a href="https://support.iad1tya.cyou/">click here</a>.</p>
+      <div class="spinner"></div>
+      <h2>Redirecting to the Developer support page...</h2>
+      <p>If you are not redirected automatically, <a href="https://support.iad1tya.cyou/">click here</a>.</p>
     </div>
     <script>
-        // Fallback JavaScript redirect
-        setTimeout(function() {
-            window.location.href = "https://support.iad1tya.cyou/";
-        }, 2000);
+      setTimeout(function () {
+        window.location.href = "https://support.iad1tya.cyou/";
+      }, 2000);
     </script>
-</body>
+  </body>
 </html>
