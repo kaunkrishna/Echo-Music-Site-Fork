@@ -1,0 +1,1105 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Echo Music - Free Open-Source Music for Android</title>
+    <meta name="description" content="Echo is a free, open-source Android music app with ad-free streaming, synced lyrics, offline playback, and Material You design. No account needed." />
+    <meta name="keywords" content="Echo Music, open source music player, free android music app, no ads music, youtube music alternative" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://echomusic.fun/" />
+    <meta property="og:title" content="Echo Music - Free Open-Source Music for Android" />
+    <meta property="og:description" content="A modern Android music app with ad-free streaming, synced lyrics, offline playback, and an intuitive Material You experience." />
+    <meta property="og:image" content="https://echomusic.fun/graph.png" />
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:url" content="https://echomusic.fun/" />
+    <meta name="twitter:title" content="Echo Music - Free Open-Source Music for Android" />
+    <meta name="twitter:description" content="A modern Android music app with ad-free streaming, synced lyrics, offline playback, and an intuitive Material You experience." />
+    <meta name="twitter:image" content="https://echomusic.fun/graph.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/index.css" />
+
+    <link rel="icon" href="./assets/Echo.png" />
+
+    <style>
+      /* ==========================================================================
+       5. INTERACTIVE UI COMPONENTS (BUTTONS & RIPPLES)
+       ========================================================================== */
+      ..ripple {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .ripple-span {
+        position: absolute;
+        border-radius: 50%;
+        transform: scale(0);
+        animation: ripple 0.6s linear;
+        background-color: rgba(255, 255, 255, 0.3);
+        pointer-events: none;
+      }
+
+      .btn-secondary {
+        background-color: var(--canvas);
+        color: var(--ink);
+        border: 1px solid var(--hairline);
+      }
+
+      .btn-secondary .ripple-span {
+        background-color: rgba(0, 0, 0, 0.1);
+      }
+
+      @keyframes ripple {
+        to {
+          transform: scale(4);
+          opacity: 0;
+        }
+      }
+
+      /* ==========================================================================
+      6. GLOBAL NAVIGATION HEADER
+      ========================================================================== */
+      .nav-bar {
+        transform: translateY(-100%);
+        transition:
+          transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          border-bottom 0.3s ease;
+        border-bottom: 1px solid transparent;
+      }
+
+      .nav-bar.visible {
+        transform: translateY(0);
+        border-bottom: 1px solid var(--hairline);
+      }
+
+      .nav-action-btn {
+        height: 40px;
+        padding: 0 20px;
+        max-width: max-content;
+      }
+
+      /* ==========================================================================
+       7. HERO PROMOTION BLOCK
+       ========================================================================== */
+      .hero {
+        position: relative;
+        padding-top: 120px;
+        padding-bottom: 80px;
+        text-align: center;
+        overflow: hidden;
+        z-index: 1;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at 50% 50%, rgba(184, 164, 237, 0.15) 0%, rgba(255, 77, 139, 0.05) 25%, transparent 50%);
+        z-index: -1;
+        animation: rotate-gradient 20s linear infinite;
+        pointer-events: none;
+      }
+
+      @keyframes rotate-gradient {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes float {
+        0% {
+          transform: translateY(0px);
+        }
+        50% {
+          transform: translateY(-10px);
+        }
+        100% {
+          transform: translateY(0px);
+        }
+      }
+
+      .hero-logo {
+        width: 96px;
+        height: 96px;
+        margin: 0 auto var(--space-xl);
+        border-radius: 28px;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.1);
+        animation: float 6s ease-in-out infinite;
+        display: block;
+      }
+
+      .hero-sub {
+        color: var(--muted);
+        max-width: 520px;
+        margin: 0 auto var(--space-xxl);
+      }
+
+      .hero-ctas {
+        display: flex;
+        gap: var(--space-sm);
+        justify-content: center;
+        margin-bottom: var(--space-lg);
+      }
+
+      /* ==========================================================================
+       8. REAL-TIME DATA TICKER STREAM
+       ========================================================================== */
+      .ticker {
+        background-color: var(--surface-soft);
+        border-top: 1px solid var(--hairline);
+        border-bottom: 1px solid var(--hairline);
+        padding: var(--space-lg) 0;
+      }
+
+      .ticker-inner {
+        display: flex;
+        justify-content: center;
+        gap: var(--space-xxl);
+        flex-wrap: wrap;
+      }
+
+      .ticker-item {
+        color: var(--ink);
+      }
+
+      /* ==========================================================================
+       9. PRODUCT APP SHOWCASE & SCROLL STRIP
+       ========================================================================== */
+      .screenshots {
+        padding: var(--space-section) 0;
+        text-align: center;
+        overflow: hidden;
+      }
+
+      .scroll-strip-wrapper {
+        display: flex;
+        overflow: hidden;
+        width: 100vw;
+        position: relative;
+        left: 50%;
+        right: 50%;
+        margin-left: -50vw;
+        margin-right: -50vw;
+        gap: var(--space-xl);
+        padding: 24px 0;
+      }
+
+      .marquee-group {
+        display: flex;
+        flex-shrink: 0;
+        gap: var(--space-xl);
+        align-items: center;
+        justify-content: space-around;
+        min-width: 100%;
+        animation: scroll-x 40s linear infinite;
+      }
+
+      .scroll-strip-wrapper:hover .marquee-group {
+        animation-play-state: paused;
+      }
+
+      @keyframes scroll-x {
+        from {
+          transform: translateX(0);
+        }
+        to {
+          transform: translateX(calc(-100% - var(--space-xl)));
+        }
+      }
+
+      .phone-mockup-wrapper {
+        flex-shrink: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: var(--space-sm);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        cursor: pointer;
+      }
+
+      .phone-mockup-wrapper:nth-child(even) {
+        transform: rotate(2deg);
+      }
+      .phone-mockup-wrapper:nth-child(odd) {
+        transform: rotate(-2deg);
+      }
+
+      .phone-mockup {
+        width: 240px;
+        height: auto;
+        object-fit: cover;
+        border-radius: 24px;
+        border: 8px solid var(--surface-dark);
+        background-color: var(--canvas);
+        box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+        display: block;
+      }
+
+      /* ==========================================================================
+       10. GRID ARCHITECTURE: FEATURES SECTION
+       ========================================================================== */
+      .features {
+        background-color: var(--surface-card);
+        padding: 80px 64px;
+        border-radius: 40px;
+        margin: 80px auto;
+        text-align: center;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--space-xl);
+        text-align: left;
+      }
+
+      .feature-card {
+        border-radius: var(--radius-xl);
+        padding: 36px;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        opacity: 0;
+        transform: translateY(40px) scale(0.95);
+        transition:
+          opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+          transform 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.4s ease;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .col-span-2 {
+        grid-column: span 2;
+      }
+      .col-span-3 {
+        grid-column: span 3;
+      }
+
+      .feature-card.flex-row {
+        flex-direction: row;
+        align-items: center;
+      }
+
+      .feature-card.flex-row .feature-icon-svg {
+        margin-bottom: 0;
+        flex-shrink: 0;
+        width: 56px;
+        height: 56px;
+      }
+
+      .feature-card.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+
+      .feature-icon-svg {
+        width: 48px;
+        height: 48px;
+        margin-bottom: var(--space-xs);
+      }
+
+      .feature-card-1 {
+        background-color: var(--accent-violet);
+        color: var(--ink);
+      }
+      .feature-card-2 {
+        background-color: var(--accent-pink);
+        color: var(--ink);
+      }
+      .feature-card-3 {
+        background-color: var(--accent-sky);
+        color: var(--ink);
+      }
+      .feature-card-4 {
+        background-color: var(--accent-peach);
+        color: var(--ink);
+      }
+      .feature-card-5 {
+        background-color: var(--accent-ochre);
+        color: var(--ink);
+      }
+      .feature-card-6 {
+        background-color: var(--accent-mint);
+        color: var(--ink);
+      }
+
+      .feature-card .feature-body {
+        color: rgba(10, 10, 10, 0.8);
+      }
+
+      /* ==========================================================================
+       11. COMPONENT ARCHITECTURE: FAQ ACCORDIONS
+       ========================================================================== */
+      .faq {
+        padding: var(--space-section) 0;
+        max-width: 800px;
+        margin: 0 auto;
+        text-align: center;
+      }
+
+      .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-md);
+        text-align: left;
+      }
+
+      .faq-item {
+        background-color: var(--canvas);
+        /* Use a semi-transparent black for the default border to allow a true fade to solid */
+        border: 2px solid rgba(10, 10, 10, 0.08);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        /* Speed up interaction transitions (0.15s) for a snappier fade effect */
+        transition:
+          border-color 0.15s ease-out,
+          background-color 0.15s ease-out,
+          box-shadow 0.15s ease-out;
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      .faq-item:hover {
+        border-color: rgba(10, 10, 10, 0.2);
+      }
+
+      .faq-item.visible {
+        opacity: 1;
+        transform: translateY(0);
+        /* Keep the 0.6s for initial entry, but pair it with the fast 0.15s interaction fades */
+        transition:
+          opacity 0.6s ease,
+          transform 0.6s ease,
+          border-color 0.15s ease-out,
+          background-color 0.15s ease-out,
+          box-shadow 0.15s ease-out;
+      }
+
+      .faq-item.open {
+        background-color: var(--surface-soft);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.05);
+        /* Fades instantly to solid highly visible border-color on open */
+        border-color: rgba(10, 10, 10, 1);
+      }
+
+      .faq-question {
+        width: 100%;
+        background: none;
+        border: none;
+        font-family: inherit;
+        text-align: left;
+        padding: var(--space-lg);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        cursor: pointer;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      .faq-icon {
+        font-size: 20px;
+        transition: transform 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        color: var(--ink);
+      }
+
+      .faq-item.open .faq-icon {
+        transform: rotate(180deg);
+      }
+
+      .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+        /* Sped up the panel expanding down to 0.25s for a faster overall accordion feel */
+        transition:
+          max-height 0.25s cubic-bezier(0.4, 0, 0.2, 1),
+          padding 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        padding: 0 var(--space-lg);
+        color: var(--body);
+      }
+
+      .faq-item.open .faq-answer {
+        padding-bottom: var(--space-lg);
+      }
+
+      /* ==========================================================================
+       12. SYSTEM FOOTER LANDMARK MODULE
+       ========================================================================== */
+      footer {
+        background-color: var(--surface-soft);
+        border-top: 1px solid var(--hairline);
+        padding: 48px 0 100px;
+      }
+
+      .footer-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--space-xl);
+        align-items: flex-start;
+      }
+
+      .footer-col-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+      }
+
+      .footer-nav {
+        display: flex;
+        gap: 24px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+        margin-top: 32px;
+      }
+
+      .footer-logo {
+        display: flex;
+        align-items: center;
+        font-size: 32px;
+        color: var(--ink);
+        margin-bottom: var(--space-xs);
+      }
+
+      .footer-logo img {
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
+        margin-right: 12px;
+      }
+
+      .footer-link {
+        color: var(--muted);
+        transition: color 0.2s ease;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      .footer-disclaimer {
+        margin-top: 16px;
+        max-width: 280px;
+        line-height: 1.4;
+      }
+
+      .social-links {
+        display: flex;
+        gap: 28px;
+      }
+
+      .social-icon-link {
+        display: inline-block;
+        transition:
+          transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
+          filter 0.3s ease;
+        filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+      }
+
+      .social-icon-link img {
+        width: 96px;
+        height: 96px;
+        object-fit: contain;
+        display: block;
+      }
+
+      /* ==========================================================================
+       13. FLOATING INTERACTION SYSTEM (FAB)
+       ========================================================================== */
+      .support-fab {
+        position: fixed;
+        bottom: 32px;
+        right: 32px;
+        z-index: 1000;
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 16px;
+        pointer-events: none;
+      }
+
+      .support-msg-bubble {
+        background-color: var(--canvas);
+        color: var(--ink);
+        border: 2px solid var(--ink);
+        box-shadow: 4px 4px 0px var(--ink);
+        padding: 16px 24px;
+        border-radius: 20px 20px 0 20px;
+        font-size: 15px;
+        font-weight: 600;
+        max-width: 260px;
+        opacity: 0;
+        transform: translateY(10px) scale(0.9);
+        transition:
+          opacity 0.4s ease,
+          transform 0.4s ease;
+        pointer-events: none;
+        line-height: 1.5;
+      }
+
+      .support-msg-bubble.show {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+
+      .cursor {
+        display: inline-block;
+        width: 2px;
+        background-color: var(--ink);
+        margin-left: 2px;
+        animation: blink 1s step-end infinite;
+      }
+
+      @keyframes blink {
+        50% {
+          opacity: 0;
+        }
+      }
+
+      .support-btn {
+        width: 64px;
+        height: 64px;
+        border-radius: 50%;
+        border: 3px solid var(--ink);
+        box-shadow: 4px 4px 0px var(--ink);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        overflow: hidden;
+        background: var(--surface-card);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        pointer-events: auto;
+      }
+
+      .support-btn img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      /* ==========================================================================
+       14. RESPONSIVE MEDIA QUERIES & LAYOUT INTERPOLATIONS
+       ========================================================================== */
+      @media (hover: hover) {
+        .btn-primary:hover {
+          transform: translateY(-2px);
+          box-shadow: 4px 4px 0px var(--ink);
+        }
+        .btn-secondary:hover {
+          background-color: var(--surface-soft);
+        }
+        .phone-mockup-wrapper:hover {
+          transform: rotate(0deg) translateY(-12px) scale(1.05);
+          z-index: 10;
+        }
+        .feature-card.visible:hover {
+          transform: translateY(-4px) scale(1.02);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.08);
+          z-index: 1;
+        }
+        .footer-link:hover {
+          text-decoration: underline;
+          color: var(--ink);
+        }
+        .support-fab:hover .support-btn {
+          transform: translateY(-4px);
+          box-shadow: 6px 6px 0px var(--ink);
+        }
+        .social-icon-link:hover {
+          transform: translateY(-8px) scale(1.15) rotate(5deg);
+          filter: drop-shadow(0 12px 24px rgba(0, 0, 0, 0.15));
+        }
+        .social-icon-link:nth-child(even):hover {
+          transform: translateY(-8px) scale(1.15) rotate(-5deg);
+        }
+      }
+
+      @media (max-width: 1024px) {
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+        }
+        .col-span-3 {
+          grid-column: span 2;
+        }
+        .display-xl {
+          font-size: 56px;
+        }
+        .display-lg {
+          font-size: 48px;
+        }
+        .display-md {
+          font-size: 32px;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+        .footer-col-right {
+          align-items: flex-start;
+        }
+        .footer-nav {
+          justify-content: flex-start;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 0 16px;
+        }
+        .nav-inner {
+          height: 60px;
+        }
+        .nav-logo {
+          font-size: 18px;
+        }
+        .nav-logo-img {
+          width: 28px;
+          height: 28px;
+        }
+        .hero {
+          padding-top: 80px;
+          padding-bottom: 40px;
+        }
+        .screenshots,
+        .faq {
+          margin: 0 24px;
+        }
+        .screenshots-header,
+        .features-header,
+        .faq-header {
+          margin-bottom: 32px;
+        }
+        .ticker {
+          padding: 24px 0;
+        }
+        .display-xl {
+          font-size: 40px;
+          letter-spacing: -1px;
+        }
+        .display-lg {
+          font-size: 32px;
+          letter-spacing: -0.5px;
+        }
+        .hero-ctas {
+          flex-direction: column;
+          align-items: center;
+        }
+        .btn {
+          width: 100%;
+          max-width: 280px;
+        }
+        .ticker-inner {
+          gap: var(--space-lg);
+        }
+        .scroll-strip-wrapper {
+          gap: var(--space-lg);
+          padding: 16px 0;
+        }
+        .marquee-group {
+          gap: var(--space-lg);
+        }
+        .phone-mockup {
+          width: 180px;
+        }
+
+        .features {
+          padding: 24px 16px;
+          border-radius: 24px;
+          margin: 40px 24px;
+        }
+        .features-grid {
+          grid-template-columns: repeat(2, 1fr);
+          gap: 12px;
+        }
+        .col-span-2,
+        .col-span-3 {
+          grid-column: span 2;
+        }
+        .feature-card {
+          padding: 24px 12px;
+          gap: 12px;
+        }
+        .feature-card.flex-row {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .feature-card.flex-row .feature-icon-svg,
+        .feature-card .feature-icon-svg {
+          width: 32px;
+          height: 32px;
+          margin-bottom: 0;
+        }
+        .feature-card .title-md {
+          font-size: 16px;
+        }
+        .feature-card .body-sm {
+          font-size: 13px;
+          line-height: 1.4;
+        }
+
+        footer {
+          padding: 32px 0 120px;
+        }
+        .footer-grid {
+          grid-template-columns: 1fr;
+          text-align: center;
+          gap: 32px;
+        }
+        .footer-logo {
+          justify-content: center;
+        }
+        .footer-col-right {
+          align-items: center;
+          gap: 24px;
+        }
+        .footer-disclaimer {
+          margin: 16px auto 0;
+          text-align: center;
+        }
+        .footer-nav {
+          justify-content: center;
+          gap: 16px;
+        }
+        .support-fab {
+          bottom: 24px;
+          right: 24px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+          scroll-behavior: auto !important;
+        }
+        .feature-card,
+        .faq-item {
+          opacity: 1 !important;
+          transform: none !important;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav id="navbar" class="nav-bar" aria-label="Main Navigation">
+      <div class="container nav-inner">
+        <a href="#" class="nav-logo display-font" aria-label="Echo Music Home">
+          <img src="./assets/Echo.png" alt="Echo Music App Icon" class="nav-logo-img" />
+          Echo Music
+        </a>
+        <div class="nav-links">
+          <a href="https://github.com/EchoMusicApp/Echo-Music/releases/latest" class="btn btn-primary ripple btn-download nav-action-btn">Download</a>
+        </div>
+      </div>
+    </nav>
+
+    <main>
+      <header class="hero">
+        <div class="container">
+          <img src="./assets/Echo.png" alt="Echo Music UI Desktop Logotype" class="hero-logo" />
+          <h1 class="display-xl">Music that moves you.<br /><span class="display-lg">No ads. No limits.</span></h1>
+          <p class="hero-sub body-md">A modern Android music app with ad-free streaming, synced lyrics, offline playback, and an intuitive Material You experience.</p>
+          <div class="hero-ctas">
+            <a href="https://github.com/EchoMusicApp/Echo-Music/releases/latest" class="btn btn-primary ripple btn-download">Download APK</a>
+            <a href="https://github.com/EchoMusicApp/Echo-Music" class="btn btn-secondary ripple">View Source</a>
+          </div>
+        </div>
+      </header>
+
+      <section class="ticker" aria-label="Repository Statistics">
+        <div class="container ticker-inner">
+          <div class="ticker-item title-md" id="stat-stars">⭐ GitHub Stars</div>
+          <div class="ticker-item title-md" id="stat-downloads">📦 Downloads</div>
+          <div class="ticker-item title-md">🎵 Ad-Free Streaming</div>
+        </div>
+      </section>
+
+      <section class="screenshots" aria-labelledby="showcase-heading">
+        <div class="container screenshots-header">
+          <p class="screenshots-label caption-uppercase">SEE IT IN ACTION</p>
+          <h2 id="showcase-heading" class="screenshots-title display-md">Built for the way you listen</h2>
+        </div>
+
+        <div class="scroll-strip-wrapper">
+          <div class="marquee-group" aria-hidden="true">
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/HomePage.mp4" poster="./assets/Screenshot/HomePage.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Home</p>
+            </div>
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/SearchPage.mp4" poster="./assets/Screenshot/SearchPage.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Search</p>
+            </div>
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/MusicPage.mp4" poster="./assets/Screenshot/MusicPage.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Now Playing</p>
+            </div>
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/Lyrics.mp4" poster="./assets/Screenshot/Lyrics.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Lyrics</p>
+            </div>
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/MusicRecognition.mp4" poster="./assets/Screenshot/MusicRecognition.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Recognition</p>
+            </div>
+          </div>
+
+          <div class="marquee-group" aria-hidden="true">
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/HomePage.mp4" poster="./assets/Screenshot/HomePage.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Home</p>
+            </div>
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/SearchPage.mp4" poster="./assets/Screenshot/SearchPage.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Search</p>
+            </div>
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/MusicPage.mp4" poster="./assets/Screenshot/MusicPage.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Now Playing</p>
+            </div>
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/Lyrics.mp4" poster="./assets/Screenshot/Lyrics.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Lyrics</p>
+            </div>
+            <div class="phone-mockup-wrapper">
+              <video src="./assets/Screenshot/MusicRecognition.mp4" poster="./assets/Screenshot/MusicRecognition.png" class="phone-mockup" autoplay loop muted playsinline></video>
+              <p class="caption u-text-muted">Recognition</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="features container" aria-labelledby="features-heading">
+        <div class="features-header">
+          <p class="caption-uppercase u-text-muted u-margin-b-sm">WHY ECHO</p>
+          <h2 id="features-heading" class="display-md u-text-ink u-margin-b-sm">Everything you need, nothing you don't</h2>
+          <p class="body-md u-text-muted style-max-width-540">Six reasons people choose Echo over every other music player.</p>
+        </div>
+
+        <div class="features-grid">
+          <div class="feature-card feature-card-1 col-span-2 flex-row">
+            <svg class="feature-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242" />
+              <path d="M12 12v9" />
+              <path d="m8 17 4 4 4-4" />
+            </svg>
+            <div class="feature-content">
+              <h3 class="title-md">Offline Playback</h3>
+              <p class="body-sm feature-body">Download your music and listen anywhere - no signal needed.</p>
+            </div>
+          </div>
+          <div class="feature-card feature-card-2">
+            <svg class="feature-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m12 8-9.04 9.06a2.82 2.82 0 1 0 3.98 3.98L16 12" />
+              <circle cx="17" cy="7" r="5" />
+            </svg>
+            <div class="feature-content">
+              <h3 class="title-md">Synced Lyrics</h3>
+              <p class="body-sm feature-body">Real-time lyrics that scroll along as the song plays. Never miss a word.</p>
+            </div>
+          </div>
+          <div class="feature-card feature-card-3">
+            <svg class="feature-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="12" cy="12" r="10" />
+              <path d="m4.9 4.9 14.2 14.2" />
+            </svg>
+            <div class="feature-content">
+              <h3 class="title-md">Zero Ads, Forever</h3>
+              <p class="body-sm feature-body">No banners. No pre-rolls. No interruptions. Music the way it should be.</p>
+            </div>
+          </div>
+          <div class="feature-card feature-card-4">
+            <svg class="feature-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15V6" />
+              <path d="M18.5 18a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5Z" />
+              <path d="M12 12H3" />
+              <path d="M16 6H3" />
+              <path d="M12 18H3" />
+            </svg>
+            <div class="feature-content">
+              <h3 class="title-md">Smart Queue</h3>
+              <p class="body-sm feature-body">Echo learns your listening habits and builds a queue you'll actually love.</p>
+            </div>
+          </div>
+          <div class="feature-card feature-card-5">
+            <svg class="feature-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="m18 16 4-4-4-4" />
+              <path d="m6 8-4 4 4 4" />
+              <path d="m14.5 4-5 16" />
+            </svg>
+            <div class="feature-content">
+              <h3 class="title-md">Open Source</h3>
+              <p class="body-sm feature-body">Every line of code is public. Fork it, audit it, improve it - it's yours.</p>
+            </div>
+          </div>
+          <div class="feature-card feature-card-6 col-span-3 flex-row">
+            <svg class="feature-icon-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <circle cx="13.5" cy="6.5" r=".5" fill="currentColor" />
+              <circle cx="17.5" cy="10.5" r=".5" fill="currentColor" />
+              <circle cx="8.5" cy="7.5" r=".5" fill="currentColor" />
+              <circle cx="6.5" cy="12.5" r=".5" fill="currentColor" />
+              <path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.926 0 1.648-.746 1.648-1.688 0-.437-.18-.836-.437-1.124-.298-.336-.498-.78-.498-1.272 0-.986.79-1.786 1.768-1.786H17c3.31 0 6-2.69 6-6 0-4.97-5.37-9-12-9Z" />
+            </svg>
+            <div class="feature-content">
+              <h3 class="title-md">Material You</h3>
+              <p class="body-sm feature-body">Adapts its palette to your wallpaper. Feels native on every Android device.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="faq" aria-labelledby="faq-heading">
+        <div class="faq-header u-margin-b-xxl">
+          <p class="caption-uppercase u-text-muted u-margin-b-sm">QUESTIONS</p>
+          <h2 id="faq-heading" class="display-md u-text-ink">Straight answers</h2>
+        </div>
+
+        <div class="faq-list">
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-1">
+              <h3 class="title-sm">Is Echo Music really free?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-ans-1" class="faq-answer">
+              <p class="body-md">Yes, completely. Echo has no paid tiers, no ads, and no subscription. It's open-source software supported by the community.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-2">
+              <h3 class="title-sm">Where do I download Echo?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-ans-2" class="faq-answer">
+              <p class="body-md">Echo is distributed through GitHub Releases. Tap the Download button above to go directly to the latest APK.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-3">
+              <h3 class="title-sm">Does Echo need an account?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-ans-3" class="faq-answer">
+              <p class="body-md">No account, no sign-up, no tracking. Open the app and play.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-4">
+              <h3 class="title-sm">Does it support lossless or 320 kbps audio?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-ans-4" class="faq-answer">
+              <p class="body-md">Currently, Echo Music streams audio directly from its sources. Lossless audio and 320 kbps high-bitrate streaming are not supported at this time.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-5">
+              <h3 class="title-sm">What Android version do I need?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-ans-5" class="faq-answer">
+              <p class="body-md">Echo runs on Android 6.0 (Marshmallow) and above.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-6">
+              <h3 class="title-sm">Can I contribute to Echo?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-ans-6" class="faq-answer">
+              <p class="body-md">Absolutely. Head to github.com/EchoMusicApp/Echo-Music to open issues, submit PRs, or suggest features. All contributors are welcome.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-7">
+              <h3 class="title-sm">Where does the music come from?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-ans-7" class="faq-answer">
+              <p class="body-md">Echo Music is a third-party YouTube Music client. It provides a customized app experience, but Echo Music itself does not host, own, or hold any of the songs.</p>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <button type="button" class="faq-question" aria-expanded="false" aria-controls="faq-ans-8">
+              <h3 class="title-sm">Does it support Music Canvas?</h3>
+              <span class="faq-icon" aria-hidden="true">+</span>
+            </button>
+            <div id="faq-ans-8" class="faq-answer">
+              <p class="body-md">
+                Yes, Canvas for the music is also available! The number of supported tracks is currently limited, but it will increase over time. For more details, visit
+                <a href="https://canvas.echomusic.fun" target="_blank" rel="noopener noreferrer" style="text-decoration: underline; color: var(--ink)">canvas.echomusic.fun</a>.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <div class="footer-grid">
+          <div class="footer-col-left">
+            <div class="footer-logo display-font">
+              <img src="./assets/Echo.png" alt="Echo Music Architectural Brandmark" />
+              Echo Music
+            </div>
+            <div class="footer-tagline body-sm">Free music for everyone.</div>
+            <div class="footer-disclaimer caption u-text-muted">Echo Music is a third-party YouTube Music client. Echo Music does not host or hold any of the audio content.</div>
+          </div>
+
+          <div class="footer-col-right">
+            <div class="footer-community">
+              <div class="title-sm style-community-title" style="margin-bottom: 16px; color: var(--ink); font-size: 20px">Join the community</div>
+              <div class="social-links">
+                <a href="https://discord.com/invite/EcfV3AxH5c" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                  <img src="./assets/Discord.png" alt="Echo Discord Server Community Ecosystem Connection" />
+                </a>
+                <a href="https://t.me/EchoMusicApp" target="_blank" rel="noopener noreferrer" class="social-icon-link">
+                  <img src="./assets/telegram.png" alt="Echo Telegram Broadcast Feed Channel Support" />
+                </a>
+              </div>
+            </div>
+            <div class="footer-nav nav-link">
+              <a href="status.html" class="footer-link">System Status</a>
+              <a href="https://canvas.echomusic.fun" class="footer-link" target="_blank" rel="noopener noreferrer">Echo Music Canvas</a>
+              <a href="privacy.html" class="footer-link">Privacy Policy</a>
+              <a href="terms.html" class="footer-link">Terms & Conditions</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <a href="https://support.iad1tya.cyou" target="_blank" rel="noopener noreferrer" class="support-fab" id="support-fab" aria-label="Support the Core Project Developer Team Connection Channel">
+      <div class="support-msg-bubble"><span id="typewriter-text"></span><span class="cursor" aria-hidden="true">|</span></div>
+      <div class="support-btn">
+        <img src="https://github.com/iad1tya.png" alt="Aditya Avatar Profile Pic Graphic Entity Token" class="support-avatar" />
+      </div>
+    </a>
+
+    <script src="./js/index.js"></script>
+  </body>
+</html>

@@ -1,0 +1,90 @@
+/* ==========================================================================
+2. GLOBAL RESETS & BASE ELEMENTS
+========================================================================== */
+body {
+  line-height: 1.6;
+}
+
+/* ==========================================================================
+3. TYPOGRAPHY & UTILITY SYSTEM
+========================================================================== */
+.display-md {
+  font-family: "Unbounded", sans-serif;
+  color: var(--ink);
+}
+
+/* ==========================================================================
+4. DOCUMENT READER LAYOUT (For Privacy & Terms)
+========================================================================== */
+.doc-container {
+  max-width: 800px;
+  margin: 80px auto;
+  padding: 0 var(--space-xl);
+}
+
+.back-link {
+  display: inline-block;
+  margin-bottom: var(--space-xl);
+  color: var(--muted);
+  text-decoration: none;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.back-link:hover {
+  color: var(--ink);
+}
+
+.doc-content p,
+.doc-content ul,
+.doc-content ol {
+  margin-bottom: var(--space-lg);
+  color: var(--body);
+}
+
+/* Reverted exact original font choices for sub-headings */
+.doc-content h2 {
+  margin-top: var(--space-xxl);
+  margin-bottom: var(--space-md);
+  font-family: "Inter", sans-serif;
+  font-size: 20px;
+  color: var(--ink);
+}
+
+.doc-content h3 {
+  margin-top: var(--space-xl);
+  margin-bottom: var(--space-sm);
+  font-size: 16px;
+  color: var(--ink);
+}
+
+.doc-content li {
+  margin-bottom: var(--space-xs);
+  margin-left: var(--space-lg);
+}
+
+.doc-content a {
+  color: var(--ink);
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-color: var(--hairline);
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.2s ease;
+}
+
+.doc-content a:hover {
+  text-decoration-color: var(--ink);
+}
+
+/* ==========================================================================
+5. RESPONSIVE MEDIA QUERIES
+========================================================================== */
+@media (max-width: 768px) {
+  .doc-container {
+    margin: 40px auto;
+    padding: 0 24px;
+  }
+  .display-md {
+    font-size: 32px;
+  }
+}

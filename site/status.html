@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>Service Status - Echo Music</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@400;500;700&display=swap" rel="stylesheet" />
+
+    <link rel="stylesheet" href="./css/style.css" />
+    <link rel="stylesheet" href="./css/status.css" />
+
+    <link rel="icon" href="./assets/Echo.png" />
+
+    <style>
+      /* ==========================================================================
+           2. GLOBAL RESETS & BASE ELEMENTS
+           ========================================================================== */
+      body {
+        min-height: 100vh;
+        padding-top: 100px;
+      }
+
+      /* ==========================================================================
+           3. TYPOGRAPHY SYSTEM
+           ========================================================================== */
+      .display-lg {
+        font-size: 48px;
+        font-weight: 500;
+        letter-spacing: -2px;
+        line-height: 1.05;
+      }
+      .body-md {
+        font-size: 18px;
+        font-weight: 400;
+      }
+
+      /* ==========================================================================
+           4. REUSABLE UTILITY CLASSES & CONTAINERS
+           ========================================================================== */
+      .container {
+        max-width: 800px;
+      }
+
+      /* ==========================================================================
+           5. GLOBAL NAVIGATION HEADER
+           ========================================================================== */
+
+
+      /* ==========================================================================
+           6. INTERACTIVE UI COMPONENTS (BUTTONS & CONTROLS)
+           ========================================================================== */
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        font-weight: 600;
+        line-height: 1;
+        border-radius: var(--radius-pill);
+        height: 48px;
+        padding: 0 28px;
+        cursor: pointer;
+        transition:
+          transform 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+          box-shadow 0.2s cubic-bezier(0.4, 0, 0.2, 1),
+          background-color 0.2s ease;
+        user-select: none;
+        -webkit-tap-highlight-color: transparent;
+        font-family: inherit;
+      }
+
+      .btn-primary {
+        background-color: var(--surface-dark);
+        color: #fff;
+        border: none;
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 4px 4px 0px var(--ink);
+      }
+
+      .btn-primary:disabled {
+        opacity: 0.7;
+        cursor: not-allowed;
+        transform: none;
+        box-shadow: none;
+      }
+
+      .controls {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+
+      /* ==========================================================================
+           7. PAGE SPECIFIC COMPONENTS (HERO, TIMER, STATUS LIST)
+           ========================================================================== */
+      .hero {
+        text-align: center;
+        margin-bottom: var(--space-xl);
+        position: relative;
+      }
+
+      .hero::before {
+        content: "";
+        position: absolute;
+        top: -150%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: radial-gradient(circle at 50% 50%, rgba(184, 164, 237, 0.15) 0%, rgba(255, 77, 139, 0.05) 25%, transparent 50%);
+        z-index: -1;
+        pointer-events: none;
+      }
+
+      .timer-container {
+        text-align: center;
+        margin-bottom: var(--space-xl);
+        font-size: 14px;
+        font-weight: 500;
+      }
+
+      .timer-value {
+        color: var(--ink);
+        font-weight: 600;
+      }
+
+      .status-list {
+        background-color: var(--surface-card);
+        border-radius: var(--radius-xl);
+        border: 1px solid var(--hairline);
+        margin-bottom: 80px;
+        overflow: hidden;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.02);
+      }
+
+      .status-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 24px 32px;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        transition: background-color 0.2s ease;
+      }
+
+      .status-item:last-child {
+        border-bottom: none;
+      }
+
+      .status-item:hover {
+        background-color: rgba(0, 0, 0, 0.02);
+      }
+
+      .service-info {
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        overflow: hidden;
+      }
+
+      .service-name {
+        font-size: 18px;
+        font-weight: 600;
+        font-family: "Unbounded", sans-serif;
+        color: var(--ink);
+      }
+
+      .service-name a:hover {
+        text-decoration: underline;
+      }
+
+      .status-badge {
+        padding: 8px 16px;
+        border-radius: var(--radius-pill);
+        font-size: 14px;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        min-width: 140px;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .status-badge::before {
+        content: "";
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        flex-shrink: 0;
+      }
+
+      .status-online {
+        background-color: rgba(16, 185, 129, 0.15);
+        color: var(--success);
+      }
+      .status-online::before {
+        background-color: var(--success);
+      }
+
+      .status-offline {
+        background-color: rgba(239, 68, 68, 0.15);
+        color: var(--error);
+      }
+      .status-offline::before {
+        background-color: var(--error);
+      }
+
+      .status-pending {
+        background-color: rgba(106, 106, 106, 0.15);
+        color: var(--muted);
+      }
+      .status-pending::before {
+        background-color: var(--muted);
+      }
+
+      /* ==========================================================================
+           8. RESPONSIVE MEDIA QUERIES
+           ========================================================================== */
+      @media (max-width: 768px) {
+        body {
+          padding-top: 80px;
+        }
+        .container {
+          padding: 0 16px;
+        }
+        .nav-inner {
+          padding: 0 16px;
+          height: 60px;
+        }
+        .nav-logo {
+          font-size: 18px;
+        }
+        .nav-logo-img {
+          width: 28px;
+          height: 28px;
+        }
+        .nav-links .btn {
+          height: 36px;
+          padding: 0 16px;
+          font-size: 13px;
+        }
+        .hero {
+          margin-bottom: 24px;
+        }
+        .display-lg {
+          font-size: 32px;
+          letter-spacing: -1px;
+        }
+        .body-md {
+          font-size: 15px;
+        }
+        .controls {
+          margin-bottom: 16px;
+        }
+        .controls .btn {
+          width: 100%;
+          height: 48px;
+        }
+        .timer-container {
+          margin-bottom: 24px;
+        }
+        .status-list {
+          border-radius: 16px;
+          margin-bottom: 40px;
+        }
+        .status-item {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 12px;
+          padding: 16px;
+        }
+        .service-info {
+          width: 100%;
+        }
+        .service-name {
+          font-size: 16px;
+        }
+        .status-badge {
+          width: 100%;
+          padding: 10px 16px;
+          font-size: 13px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="nav-bar" aria-label="Main Navigation">
+      <div class="nav-inner">
+        <a href="index.html" class="nav-logo display-font" aria-label="Echo Music Home">
+          <img src="./assets/Echo.png" alt="Echo Music App Icon" class="nav-logo-img" />
+          Echo Music
+        </a>
+        <div class="nav-links">
+          <a href="index.html" class="btn btn-primary">Back</a>
+        </div>
+      </div>
+    </nav>
+
+    <main class="container">
+      <header class="hero">
+        <h1 class="display-lg u-margin-b-md">System Status</h1>
+        <p class="body-md u-text-muted style-max-width-520">Real-time service monitoring</p>
+      </header>
+
+      <section aria-label="Status Controls">
+        <div class="controls">
+          <button id="force-ping-btn" class="btn btn-primary">Check Status Now</button>
+        </div>
+
+        <div class="timer-container u-text-muted">Next check in: <span id="countdown" class="timer-value">05:00</span></div>
+
+        <div class="status-list" id="status-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <script src="./js/status.js"></script>
+  </body>
+</html>
