@@ -169,7 +169,6 @@
     rippleBindingTarget.addEventListener("touchstart", deployMaterialRippleContext, { passive: true });
   });
 
-
   DOM.faqItems.forEach((currentFaqElementBlock) => {
     const interactiveTriggerElement = currentFaqElementBlock.querySelector(".faq-question");
     const internalPanelContentWrapper = currentFaqElementBlock.querySelector(".faq-answer");
